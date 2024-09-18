@@ -6,7 +6,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="320.0" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutY="-3.0" prefHeight="30.0" prefWidth="500.0">
@@ -30,12 +29,13 @@
       </AnchorPane>
       <AnchorPane layoutY="25.0" prefHeight="270.0" prefWidth="500.0">
          <children>
-            <ListView editable="true" layoutX="4.0" layoutY="13.0" prefHeight="250.0" prefWidth="492.0" />
+            <ListView fx:id="List" editable="true" layoutX="4.0" layoutY="13.0" prefHeight="250.0" prefWidth="492.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="296.0" prefHeight="20.0" prefWidth="500.0">
          <children>
-            <Button fx:id="PlayButton" layoutX="4.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="492.0" text="Play" />
+            <Button fx:id="PlayButton" layoutX="252.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="243.0" text="Play" />
+            <Button fx:id="AddToon" layoutX="5.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="243.0" text="Add Toon" />
          </children>
       </AnchorPane>
    </children>
