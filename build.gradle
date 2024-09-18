@@ -6,7 +6,7 @@ plugins {
     id 'org.beryx.jlink' version '2.25.0'
 }
 
-group 'com.example'
+group 'com.example.Launcher'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -25,8 +25,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.example.ttr'
-    mainClass = 'com.example.ttr.HelloApplication'
+    mainModule = 'com.example.Launcher'
+    mainClass = 'com.example.Launcher.HelloApplication'
 }
 
 javafx {

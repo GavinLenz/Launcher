@@ -1,4 +1,4 @@
-package com.example.ttr;
+package com.example.Launcher;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

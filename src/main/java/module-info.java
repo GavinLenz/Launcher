@@ -1,4 +1,4 @@
-module com.example.ttr {
+module com.example.Launcher {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -10,6 +10,6 @@ module com.example.ttr {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
-    opens com.example.ttr to javafx.fxml;
-    exports com.example.ttr;
+    opens com.example.Launcher to javafx.fxml;
+    exports com.example.Launcher;
 }

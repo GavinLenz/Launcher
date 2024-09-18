@@ -1,4 +1,4 @@
-package com.example.ttr;
+package com.example.Launcher;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
