@@ -12,17 +12,20 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
 
+import static java.net.http.HttpClient.newHttpClient;
+
 
 public class Login {
     // TTR API login URL
     // https://github.com/ToontownRewritten/api-doc/blob/master/login.md
-    private final String url = "https://www.toontownrewritten.com/api/login?format=json";
+    private final String URL = "https://www.toontownrewritten.com/api/login?format=json";
     
     // User's login details
-    private Map<String, String> loginDetails = new HashMap<>();
+    private final Map<String, String> loginDetails;
 
     // Constructor method - Adds username and password to a key-value map
     private Login(String username, String password) {
+        loginDetails = new HashMap<>();
         loginDetails.put("username", username);
         loginDetails.put("password", password);
     }
@@ -33,39 +36,36 @@ public class Login {
         loginAttempt.sendHttpRequest();
     }
 
-    // Sends a HTTP POST request to TTR API login URL
+    // Sends an HTTP POST request to TTR API login URL
     private void sendHttpRequest() {
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        // Builds the HTTP request
-        HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(url))
-        .header("Content-Type", "application/x-www-form-urlencoded; text/plain; charset=UTF-8")
-        .POST(HttpRequest.BodyPublishers.ofString(buildUrlParameter()))
-        .build();
-
+        HttpClient client = newHttpClient();
         HttpResponse<String> httpResponse;
 
-        // Attempts to send a HTTP request
+            // Builds the HTTP request
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL))
+                .header("Content-Type", "application/x-www-form-urlencoded; text/plain; charset=UTF-8")
+                .POST(HttpRequest.BodyPublishers.ofString(buildUrlParameter()))
+                .build();
+
+        // Attempts to send an HTTP request
         try {
             httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TO-DO
             // New window pop-up to inform the user that we are unable to send a login request
             return;
         }
-        
+
         // Handles the API's responses
-        handleResponse(jsonStringToHashMap(httpResponse.body().toString()));
+        handleResponse(jsonStringToHashMap(httpResponse.body()));
     }
 
     // Formats the parameters in "param1=value1&param2=value2&..."
     private String buildUrlParameter() {
         StringBuilder parameter = new StringBuilder();
         for (Map.Entry<String, String> entry : loginDetails.entrySet()) {
-            if (parameter.length() > 0) {
+            if (!parameter.isEmpty()) {
                 parameter.append("&");
             }
             parameter.append(entry.getKey()).append("=").append(entry.getValue());
