@@ -10,6 +10,9 @@ module com.example.Launcher {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
+    requires java.net.http;
+    requires org.json;
+
     opens com.example.Launcher to javafx.fxml;
     exports com.example.Launcher;
 }
