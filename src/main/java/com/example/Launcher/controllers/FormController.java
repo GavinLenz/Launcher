@@ -1,8 +1,9 @@
-package com.example.Launcher;
+package com.example.Launcher.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import com.example.Launcher.models.Toon;
 import javafx.stage.Stage;
 
 public class FormController {

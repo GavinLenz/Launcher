@@ -1,4 +1,4 @@
-package com.example.Launcher;
+package com.example.Launcher.models;
 
 import javafx.scene.control.CheckBox;
 

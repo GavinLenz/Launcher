@@ -1,4 +1,4 @@
-package com.example.Launcher;
+package com.example.Launcher.utils;
 
 import org.json.JSONObject;
 
