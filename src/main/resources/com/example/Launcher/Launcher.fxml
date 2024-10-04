@@ -4,28 +4,27 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="320.0" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Launcher.LauncherController">
    <children>
       <AnchorPane layoutY="-3.0" prefHeight="30.0" prefWidth="500.0">
          <children>
-            <MenuButton fx:id="groupButton" alignment="CENTER" layoutX="3.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Group" textAlignment="CENTER">
+            <MenuButton fx:id="groupButton" alignment="CENTER" layoutX="3.0" layoutY="7.0" mnemonicParsing="false" onAction="#groupButton" prefHeight="30.0" prefWidth="95.0" text="Group" textAlignment="CENTER">
               <items>
                 <MenuItem fx:id="Group1" mnemonicParsing="false" text="Quad" />
                 <MenuItem fx:id="Group2" mnemonicParsing="false" text="Octo" />
               </items>
             </MenuButton>
-            <MenuButton fx:id="optionsButton" alignment="CENTER" layoutX="103.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Options" textAlignment="CENTER">
+            <MenuButton fx:id="optionsButton" alignment="CENTER" layoutX="103.0" layoutY="7.0" mnemonicParsing="false" onAction="#optionsButton" prefHeight="30.0" prefWidth="95.0" text="Options" textAlignment="CENTER">
               <items>
                 <MenuItem mnemonicParsing="false" text="Light Mode" />
                 <MenuItem mnemonicParsing="false" text="Dark Mode" />
               </items>
             </MenuButton>
-            <Button fx:id="endSelected" alignment="CENTER" layoutX="202.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="End Selected" textAlignment="CENTER" />
-            <Button fx:id="unselectAll" alignment="CENTER" layoutX="301.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Unselect All" textAlignment="CENTER" />
-            <Button fx:id="endAll" alignment="CENTER" layoutX="401.0" layoutY="7.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="End All" textAlignment="CENTER" />
+            <Button fx:id="endSelectedButton" alignment="CENTER" layoutX="301.0" layoutY="7.0" mnemonicParsing="false" onAction="#endSelectedButton" prefHeight="30.0" prefWidth="95.0" text="End Selected" textAlignment="CENTER" />
+            <Button fx:id="endAllButton" alignment="CENTER" layoutX="401.0" layoutY="7.0" mnemonicParsing="false" onAction="#endAllButton" prefHeight="30.0" prefWidth="95.0" text="End All" textAlignment="CENTER" />
+            <Button fx:id="unselectAllButton" alignment="CENTER" layoutX="202.0" layoutY="7.0" mnemonicParsing="false" onAction="#unselectAllButton" prefHeight="30.0" prefWidth="95.0" text="Unselect All" textAlignment="CENTER" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="25.0" prefHeight="270.0" prefWidth="500.0">
@@ -35,8 +34,8 @@
       </AnchorPane>
       <AnchorPane layoutY="296.0" prefHeight="20.0" prefWidth="500.0">
          <children>
-            <Button fx:id="playButton" layoutX="252.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="243.0" text="Play"/>
-            <Button fx:id="addToon" layoutX="5.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="243.0" text="Add Toon" onAction="#addToonButton" />
+            <Button fx:id="playButton" layoutX="252.0" layoutY="-5.0" mnemonicParsing="false" onAction="#playButton" prefHeight="25.0" prefWidth="243.0" text="Play" />
+            <Button fx:id="addToon" layoutX="5.0" layoutY="-5.0" mnemonicParsing="false" onAction="#addToonButton" prefHeight="25.0" prefWidth="243.0" text="Add Toon" />
          </children>
       </AnchorPane>
    </children>

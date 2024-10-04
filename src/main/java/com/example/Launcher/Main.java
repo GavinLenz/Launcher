@@ -7,14 +7,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LauncherApplication extends Application {
+public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LauncherApplication.class.getResource("/com/example/Launcher/Launcher.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/Launcher/Launcher.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 500, 320);
+            // Image icon = new Image("com/example/Launcher/icon.png"); // For adding icon to window
+            // stage.getIcons().add(icon);
             stage.setTitle("Toontown Launcher");
-            stage.resizableProperty().setValue(Boolean.FALSE);
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

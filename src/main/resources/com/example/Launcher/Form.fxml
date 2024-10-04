@@ -9,9 +9,9 @@
 
 <AnchorPane prefHeight="280.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Launcher.FormController">
    <children>
-      <PasswordField fx:id="passwordField" layoutX="70.0" layoutY="160.0" />
-      <TextField fx:id="usernameField" layoutX="70.0" layoutY="105.0" />
       <TextField fx:id="toonNameField" layoutX="70.0" layoutY="50.0" />
+      <TextField fx:id="usernameField" layoutX="70.0" layoutY="105.0" />
+      <PasswordField fx:id="passwordField" layoutX="70.0" layoutY="160.0" />
       <Label fx:id="toonNameLabel" layoutX="70.0" layoutY="30.0" text="Toon Name:" />
       <Label fx:id="usernameLabel" layoutX="70.0" layoutY="85.0" text="Username:" />
       <Label fx:id="passwordLabel" layoutX="70.0" layoutY="140.0" text="Password:" />
