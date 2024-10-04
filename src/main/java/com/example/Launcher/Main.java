@@ -5,39 +5,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
+
     @Override
-    public void start(Stage stage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/Launcher/Launcher.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 500, 320);
-            // Image icon = new Image("com/example/Launcher/icon.png"); // For adding icon to window
-            // stage.getIcons().add(icon);
-            stage.setTitle("Toontown Launcher");
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading FXML file: " + e.getMessage());
-        }
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Display.fxml"));
+        primaryStage.setTitle("Toontown Launcher");
+        primaryStage.setScene(new Scene(loader.load(), 500, 320));
+        primaryStage.setResizable(false);
+        primaryStage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
-
-
-/*
-
-Comments to self...
-
-
-1. Reformat FXML code for readability
-
-2. Need to figure out how to display toons
-
- */

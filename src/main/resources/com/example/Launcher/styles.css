@@ -1,0 +1,85 @@
+/* General Font and Background */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #2E2E2E;  /* Dark Grey */
+}
+
+/* Button Styles */
+.button {
+    -fx-background-color: #2E2E2E;  /* Dark Grey */
+    -fx-text-fill: #F5F5DC;  /* Beige text */
+    -fx-padding: 8 15;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5;
+    -fx-border-color: #BFBFBF;  /* Light grey border */
+}
+
+.button:hover {
+    -fx-background-color: #3A3A3A;  /* Slightly lighter dark grey */
+}
+
+.button:pressed {
+    -fx-background-color: #1A1A1A;  /* Even darker grey when pressed */
+}
+
+/* Label Styling */
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F5F5DC;  /* Beige */
+}
+
+/* ListView Styling */
+.list-view {
+    -fx-padding: 10;
+    -fx-background-color: #2E2E2E;  /* Dark Grey */
+    -fx-border-color: #BFBFBF;  /* Light grey for border */
+    -fx-border-radius: 5;
+    -fx-text-fill: #F5F5DC;  /* Beige text for list items */
+}
+
+.list-cell {
+    -fx-background-color: #2E2E2E;  /* Dark Grey */
+    -fx-text-fill: #F5F5DC;  /* Beige text */
+}
+
+.list-cell:hover {
+    -fx-background-color: #3A3A3A;  /* Slightly lighter grey on hover */
+}
+
+/* CheckBox Styling */
+.check-box {
+    -fx-text-fill: #F5F5DC;  /* Beige for CheckBox text,
+     might change later because it doesn't look great */
+}
+
+.check-box:selected {
+    -fx-background-color: #8FBC8F;  /* Dark Sea Green when checked */
+}
+
+.check-box .box {
+    -fx-border-color: #BFBFBF;  /* Light grey border */
+}
+
+.check-box:selected .box {
+    -fx-background-color: #8FBC8F;  /* Dark Sea Green when checked
+    I would like a darker green */
+}
+
+/* TextField and PasswordField Styling */
+.text-field, .password-field {
+    -fx-padding: 5;
+    -fx-background-color: #3A3A3A;  /* Slightly lighter dark grey for inputs */
+    -fx-border-color: #BFBFBF;  /* Light grey border */
+    -fx-border-radius: 5;
+    -fx-text-fill: #F5F5DC;  /* Beige text */
+}
+
+/* HBox and VBox Styling */
+.hbox, .vbox {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-background-color: #2E2E2E;  /* Dark Grey background */
+    -fx-border-radius: 5;
+    -fx-border-color: #BFBFBF;  /* Light grey border */
+}

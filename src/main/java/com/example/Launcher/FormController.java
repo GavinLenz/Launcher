@@ -1,9 +1,6 @@
 package com.example.Launcher;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -11,42 +8,37 @@ import javafx.stage.Stage;
 public class FormController {
 
     @FXML
-    private Label nameLabel;
-
-    @FXML
     private TextField nameField;
-
-    @FXML
-    private Label usernameLabel;
 
     @FXML
     private TextField usernameField;
 
     @FXML
-    private Label passwordLabel;
-
-    @FXML
     private PasswordField passwordField;
 
+    private DisplayController displayController;  // Reference to the main controller to pass data back
 
+    public void setDisplayController(DisplayController displayController) {
+        this.displayController = displayController;
+    }
 
     @FXML
-    private void submitForm(ActionEvent event) {
-        // Get user input
+    private void saveToon() {
         String name = nameField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // Create a User object
-        Toon user = new Toon(name, username, password);
-
-        // Save user data to a file
-        String filename = "user_data.txt";
-        user.saveToFile(filename);
-
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        // Create a Toon object and send it back to DisplayController
+        if (!name.isEmpty() && !username.isEmpty() && !password.isEmpty()) {
+            Toon toon = new Toon(name, username, password);
+            displayController.addToon(toon);  // Sending the toon back to the display controller
+            closeForm();
+        }
     }
 
+    @FXML
+    private void closeForm() {
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.close();
+    }
 }
