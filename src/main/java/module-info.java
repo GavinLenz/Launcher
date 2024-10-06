@@ -18,4 +18,6 @@ module com.example.Launcher {
     exports com.example.Launcher;
     exports com.example.Launcher.utils;
     opens com.example.Launcher.utils to javafx.fxml;
+    exports main;
+    opens main to javafx.fxml;
 }
