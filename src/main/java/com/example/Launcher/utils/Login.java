@@ -110,6 +110,10 @@ public class Login {
                 break;
             case "true":
                 System.out.println("Login successful!");
+                String gameserver = response.get("gameserver");
+                String cookie = response.get("cookie");
+                String manifest = response.get("manifest");
+                new Launcher(gameserver, cookie, manifest);
                 break;
             case "delayed":
                 System.out.println("Queued: position " + response.get("position") + ", ETA: " + response.get("eta"));

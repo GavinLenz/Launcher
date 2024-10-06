@@ -33,13 +33,13 @@ public class Main extends Application {
         //  modifyPlist(plistPath);
 
         // needs fixing
-        eventHandlers = new EventHandlers();
+        // eventHandlers = new EventHandlers();
 
-        if (eventHandlers != null) {
-            eventHandlers.playSelectedToon(primaryStage);
-        } else {
-            System.out.println("EventHandlers is null!");
-        }
+        // if (eventHandlers != null) {
+        //     eventHandlers.playSelectedToon(primaryStage);
+        // } else {
+        //     System.out.println("EventHandlers is null!");
+        // }
     }
 
     public static void main(String[] args) {

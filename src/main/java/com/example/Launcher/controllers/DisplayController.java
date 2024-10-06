@@ -14,8 +14,6 @@ public class DisplayController {
     private ToonManager toonManager;
     private UIInitializer uiInitializer;
     private EventHandlers eventHandlers;
-    private Stage primaryStage;
-
 
     @FXML
     public void initialize() {
@@ -24,22 +22,22 @@ public class DisplayController {
         eventHandlers = new EventHandlers(toonManager, toonsListView, this, uiInitializer);
     }
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
+    // public void setPrimaryStage(Stage primaryStage) {
+    //     this.primaryStage = primaryStage;
+    // }
 
     @FXML
-    void openAddToonForm() {
+    void addToonClicked() {
         if (eventHandlers != null) {
-            eventHandlers.openAddToonForm();  // Make sure eventHandlers is not null
+            eventHandlers.addToonHandler();  // Make sure eventHandlers is not null
         } else {
             System.out.println("EventHandlers is null!");
         }
     }
     @FXML
-    void playSelectedToon() {
+    void playClicked() {
         if (eventHandlers != null) {
-            eventHandlers.playSelectedToon(primaryStage);  // not sure
+            eventHandlers.playClickHandler();  // not sure
         } else {
             System.out.println("EventHandlers is null!");
         }
