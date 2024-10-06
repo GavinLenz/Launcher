@@ -7,7 +7,7 @@
 /* Button Styles */
 .button {
     -fx-background-color: #2E2E2E;  /* Dark Grey */
-    -fx-text-fill: #F5F5DC;  /* Beige text */
+    -fx-text-fill: #A5A59E;  /* Beige text */
     -fx-padding: 8 15;
     -fx-font-size: 14px;
     -fx-border-radius: 5;
@@ -26,7 +26,7 @@
 .label {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #F5F5DC;  /* Beige */
+    -fx-text-fill: #A5A59E;  /* Beige */
 }
 
 /* ListView Styling */
@@ -35,12 +35,12 @@
     -fx-background-color: #2E2E2E;  /* Dark Grey */
     -fx-border-color: #BFBFBF;  /* Light grey for border */
     -fx-border-radius: 5;
-    -fx-text-fill: #F5F5DC;  /* Beige text for list items */
+    -fx-text-fill: #A5A59E;  /* Beige text for list items */
 }
 
 .list-cell {
     -fx-background-color: #2E2E2E;  /* Dark Grey */
-    -fx-text-fill: #F5F5DC;  /* Beige text */
+    -fx-text-fill: #A5A59E;  /* Beige text */
 }
 
 .list-cell:hover {
@@ -49,8 +49,7 @@
 
 /* CheckBox Styling */
 .check-box {
-    -fx-text-fill: #F5F5DC;  /* Beige for CheckBox text,
-     might change later because it doesn't look great */
+    -fx-text-fill: #A5A59E;  /* Beige for CheckBox text */
 }
 
 .check-box:selected {
@@ -68,7 +67,11 @@
 
 /* Using as a band-aid until I fix CSS issue within the list */
 .text {
-    -fx-fill: #F5F5DC;  /* Beige text */
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: #A5A59E;  /* Beige text */
+
 }
 
 /* TextField and PasswordField Styling */
@@ -77,7 +80,7 @@
     -fx-background-color: #3A3A3A;  /* Slightly lighter dark grey for inputs */
     -fx-border-color: #BFBFBF;  /* Light grey border */
     -fx-border-radius: 5;
-    -fx-text-fill: #F5F5DC;  /* Beige text */
+    -fx-text-fill: #A5A59E;  /* Beige text */
 }
 
 /* HBox and VBox Styling */

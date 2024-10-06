@@ -1,7 +1,6 @@
 package com.example.Launcher;
 
 import com.example.Launcher.models.Toon;
-import com.example.Launcher.models.ToonWithCheckBox;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 
 public class ToonManager {
 
-    private List<ToonWithCheckBox> toonsWithCheckBoxes = new ArrayList<>();
+    private List<Toon> toons = new ArrayList<>();  // Now manages only Toon objects
 
     public ToonManager() {
         loadToonsFromFile();
@@ -22,8 +21,9 @@ public class ToonManager {
             while ((line = br.readLine()) != null) {
                 String[] details = line.split(",");
                 if (details.length == 3) {
+                    // Create and add Toon to the list
                     Toon toon = new Toon(details[0].trim(), details[1].trim(), details[2].trim());
-                    toonsWithCheckBoxes.add(new ToonWithCheckBox(toon));
+                    toons.add(toon);  // No need for ToonWithCheckBox anymore
                 }
             }
         } catch (IOException e) {
@@ -31,21 +31,19 @@ public class ToonManager {
         }
     }
 
-    public List<ToonWithCheckBox> getToonsWithCheckBoxes() {
-        return toonsWithCheckBoxes;
+    public List<Toon> getToons() {
+        return toons;
     }
 
     public void addToon(Toon toon) {
-        ToonWithCheckBox toonWithCheckBox = new ToonWithCheckBox(toon);
-        toonsWithCheckBoxes.add(toonWithCheckBox);
+        toons.add(toon);
         saveToonsToFile();
     }
 
     private void saveToonsToFile() {
         String filePath = "src/main/resources/toons_data.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (ToonWithCheckBox toonWithCheckBox : toonsWithCheckBoxes) {
-                Toon toon = toonWithCheckBox.getToon();
+            for (Toon toon : toons) {
                 writer.write(toon.getName() + "," + toon.getUsername() + "," + toon.getPassword());
                 writer.newLine();
             }

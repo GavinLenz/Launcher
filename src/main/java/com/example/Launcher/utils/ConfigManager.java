@@ -3,9 +3,6 @@ package com.example.Launcher.utils;
 import java.io.*;
 
 public class ConfigManager {
-
-
-    // Need to fix the creation on the config file
     private static final String CONFIG_FILE = "config/config.txt";
 
     public static String readConfig() {
@@ -18,13 +15,20 @@ public class ConfigManager {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("ttr_path=")) {
-                    return line.split("=")[1];  // Return the path
+                    String path = line.split("=")[1];
+                    // Validate if the path is valid before returning it
+                    if (PathFinder.isValidPath(path)) {
+                        return path;
+                    } else {
+                        System.out.println("Invalid path in config file.");
+                        return null;
+                    }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;  // Return null if no valid path is found
+        return null;
     }
 
     public static void writeConfig(String path) {
@@ -37,11 +41,10 @@ public class ConfigManager {
                     System.out.println("Directory created: " + parentDir.getAbsolutePath());
                 } else {
                     System.err.println("Failed to create directory: " + parentDir.getAbsolutePath());
-                    return;  // Exit if directory creation fails
+                    return;
                 }
             }
 
-            // Write the configuration file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(configFile))) {
                 writer.write("ttr_path=" + path);
                 System.out.println("Config file written successfully: " + configFile.getAbsolutePath());

@@ -1,8 +1,6 @@
 package com.example.Launcher.utils;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.IOException;
+import java.io.File;
 
 public class PathFinder {
 
@@ -16,10 +14,13 @@ public class PathFinder {
                 if (isValidPath(path)) {
                     System.out.println("Found valid path: " + path);
                     return path;
+                } else {
+                    System.out.println("Invalid path: " + path);
                 }
             }
         } else if (OSUtils.isMac()) {
             String[] commonPaths = {
+                    "/Users/gavinlenz/Library/Application Support/Toontown Rewritten/Toontown Rewritten.app/Contents/MacOS/TTREngine",
                     "/Applications/Toontown Launcher.app/Contents/MacOS/Toontown Launcher"
             };
             for (String path : commonPaths) {
@@ -31,6 +32,19 @@ public class PathFinder {
                     System.out.println("Invalid path: " + path);
                 }
             }
+        /*} else if (OSUtils.isLinux()) {
+            String[] commonPaths = {
+                    "? ? ?"
+            };
+            for (String path : commonPaths) {
+                System.out.println("Checking path: " + path);
+                if (isValidPath(path)) {
+                    System.out.println("Found valid path: " + path);
+                    return path;
+                } else {
+                    System.out.println("Invalid path: " + path);
+                }
+            } */
         }
         System.out.println("Auto-detection failed.");
         return null;
@@ -41,24 +55,7 @@ public class PathFinder {
             return false;
         }
 
-        if (path.endsWith(".app")) {
-            path = path + "/Contents/MacOS/TTR";
-        }
-
-        return Files.exists(Paths.get(path));
-    }
-
-    public static void launchGame(String path) {
-        if (path == null || path.isEmpty()) {
-            System.out.println("Path is null or empty.");
-            return;
-        }
-
-        try {
-            String[] command = {"/bin/sh", "-c", path};
-            Runtime.getRuntime().exec(command);
-        } catch (IOException e) {
-            System.out.println("Failed to launch the game: " + e.getMessage());
-        }
+        File file = new File(path);
+        return file.exists() && file.isFile();
     }
 }

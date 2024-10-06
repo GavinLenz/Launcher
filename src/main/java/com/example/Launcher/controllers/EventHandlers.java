@@ -1,5 +1,9 @@
 package com.example.Launcher.controllers;
 
+
+import com.example.Launcher.UIInitializer;
+import com.example.Launcher.utils.GameLauncher;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -13,17 +17,15 @@ import java.util.Objects;
 
 import com.example.Launcher.models.Toon;
 import com.example.Launcher.ToonManager;
-import com.example.Launcher.models.ToonWithCheckBox;
-import com.example.Launcher.utils.ConfigManager;
-import com.example.Launcher.utils.PathFinder;
+import com.example.Launcher.utils.Login;
 
 public class EventHandlers {
 
     private ToonManager toonManager;
-    private ListView<ToonWithCheckBox> toonsListView;
+    private ListView<Toon> toonsListView;
     private DisplayController displayController;
 
-    public EventHandlers(ToonManager toonManager, ListView<ToonWithCheckBox> toonsListView, DisplayController displayController) {
+    public EventHandlers(ToonManager toonManager, ListView<Toon> toonsListView, DisplayController displayController, UIInitializer uiInitializer) {
         this.toonManager = toonManager;
         this.toonsListView = toonsListView;
         this.displayController = displayController;
@@ -54,32 +56,24 @@ public class EventHandlers {
     }
 
     @FXML
-    void playSelectedToon() {
-        ToonWithCheckBox selectedToonWithCheckBox = toonsListView.getSelectionModel().getSelectedItem();
+    void playSelectedToon(Stage primaryStage, String gameserver, String cookie) {
+        ObservableList<Toon> selectedToons = UIInitializer.getSelectedToons();  // Access selected toons from UIInitializer
 
-        if (selectedToonWithCheckBox != null) {
-            if (selectedToonWithCheckBox.isSelected()) {
-                Toon selectedToon = selectedToonWithCheckBox.getToon();
-                String username = selectedToon.getUsername();
-                String password = selectedToon.getPassword();
+        if (selectedToons.isEmpty()) {
+            showNoSelectionAlert();  // Handle case when no Toons are selected
+            return;
+        }
 
-                String ttrPath = ConfigManager.readConfig();
+        for (Toon toon : selectedToons) {
+            String username = toon.getUsername();
+            String password = toon.getPassword();
 
-                if (PathFinder.isValidPath(ttrPath)) {
-                    System.out.println("Launching toon with username: " + username);
-                    PathFinder.launchGame(ttrPath);
-                    showSuccessAlert(selectedToon.getName());
-                } else {
-                    System.out.println("Invalid path for TTR executable.");
-                    showFailureAlert();
-                }
-            } else {
-                System.out.println("Checkbox not selected.");
-                showNoSelectionAlert();
+            // Call GameLauncher for each selected Toon
+            if (Login.verifyCredentials(username, password) ) {
+                GameLauncher.launchGame(primaryStage, gameserver, cookie);  // Ensure primaryStage is available here
+                System.out.println("Launching toon with username: " + username);
+                showSuccessAlert(toon.getName());
             }
-        } else {
-            System.out.println("No toon selected.");
-            showNoSelectionAlert();
         }
     }
 

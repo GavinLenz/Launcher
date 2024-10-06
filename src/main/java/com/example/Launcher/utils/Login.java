@@ -24,6 +24,7 @@ public class Login {
         loginDetails.put("password", password);
     }
 
+    // Needs to be fixed
     public static void startLogin(String username, String password) {
         if (verifyCredentials(username, password)) {
             Login loginAttempt = new Login(username, password);
@@ -33,7 +34,7 @@ public class Login {
         }
     }
 
-    private static boolean verifyCredentials(String username, String password) {
+    public static boolean verifyCredentials(String username, String password) {
         String filePath = "src/main/resources/toons_data.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
