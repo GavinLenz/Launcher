@@ -4,17 +4,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.Launcher.controllers.FormController"
+      alignment="CENTER" spacing="10" prefHeight="200" prefWidth="250">
 
-<AnchorPane prefHeight="280.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Launcher.FormController">
-   <children>
-      <TextField fx:id="toonNameField" layoutX="70.0" layoutY="50.0" />
-      <TextField fx:id="usernameField" layoutX="70.0" layoutY="105.0" />
-      <PasswordField fx:id="passwordField" layoutX="70.0" layoutY="160.0" />
-      <Label fx:id="toonNameLabel" layoutX="70.0" layoutY="30.0" text="Toon Name:" />
-      <Label fx:id="usernameLabel" layoutX="70.0" layoutY="85.0" text="Username:" />
-      <Label fx:id="passwordLabel" layoutX="70.0" layoutY="140.0" text="Password:" />
-      <Button fx:id="saveButton" layoutX="100.0" layoutY="215.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Save" onAction="#submitForm"/>
-   </children>
-</AnchorPane>
+   <Label text="Add Toon" />
+
+   <TextField fx:id="nameField" promptText="Name" />
+   <TextField fx:id="usernameField" promptText="Username" />
+   <PasswordField fx:id="passwordField" promptText="Password" />
+
+   <HBox spacing="10" alignment="CENTER">
+      <Button text="Save" onAction="#saveToon" />
+      <Button text="Cancel" onAction="#closeForm" />
+   </HBox>
+
+</VBox>

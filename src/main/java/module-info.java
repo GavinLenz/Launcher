@@ -14,5 +14,8 @@ module com.example.Launcher {
     requires org.json;
 
     opens com.example.Launcher to javafx.fxml;
+    opens com.example.Launcher.controllers to javafx.fxml;
     exports com.example.Launcher;
+    exports com.example.Launcher.utils;
+    opens com.example.Launcher.utils to javafx.fxml;
 }
