@@ -1,4 +1,4 @@
-package com.example.Launcher.controllers.eventhandlers;
+package com.example.Launcher.utils.ui;
 
 import javafx.scene.control.Alert;
 

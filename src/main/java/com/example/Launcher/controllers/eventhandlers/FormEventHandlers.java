@@ -1,39 +1,55 @@
 package com.example.Launcher.controllers.eventhandlers;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
+import com.example.Launcher.controllers.DisplayController;
+import com.example.Launcher.models.Toon;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.Objects;
 
 public class FormEventHandlers {
 
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private PasswordField passwordField;
+
     private DisplayController displayController;
 
-    public FormEventHandlers(DisplayController displayController) {
+    public void setDisplayController(DisplayController displayController) {
         this.displayController = displayController;
     }
 
-    public void openAddToonForm() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Launcher/Form.fxml"));
-            Parent root = loader.load();
+    @FXML
+    public void saveToon() {
+        String name = nameField.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
 
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Add Toon");
-
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/example/Launcher/styles.css")).toExternalForm());
-
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Ensure no field is empty before proceeding
+        if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "All fields must be filled.");
+            alert.show();
+            return;
         }
+
+        if (displayController != null) {
+            Toon toon = new Toon(name, username, password);
+            displayController.addToon(toon); // Pass new Toon to DisplayController
+            closeForm();
+        } else {
+            System.out.println("Error: DisplayController is null.");
+        }
+    }
+
+    @FXML
+    public void closeForm() {
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.close();
     }
 }
