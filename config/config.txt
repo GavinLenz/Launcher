@@ -1,1 +1,0 @@
-ttr_path=/Applications/Toontown Launcher.app/Contents/MacOS/Toontown Launcher

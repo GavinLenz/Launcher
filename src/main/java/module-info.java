@@ -21,5 +21,4 @@ module com.example.Launcher {
 
     // Export public packages
     exports com.example.Launcher;
-    exports com.example.Launcher.utils;
 }

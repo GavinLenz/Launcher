@@ -91,7 +91,7 @@ public class DisplayController {
 
     @FXML
     // Method to play the selected toons when the "Play" button is pressed
-    public void playSelectedToon() {
+    public void playClicked() {
         // Get all toons from the ToonListManager
         ToonListManager toonManager = ToonListManager.getInstance();
         List<Toon> allToons = toonManager.getToons();  // Ensure this returns the list of all available toons
@@ -114,7 +114,7 @@ public class DisplayController {
 
     // Method to open the Add Toon form
     @FXML
-    public void openAddToonForm() {
+    public void addToonClicked() {
         try {
             // Load the Add Toon form (Form.fxml)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Launcher/Form.fxml"));

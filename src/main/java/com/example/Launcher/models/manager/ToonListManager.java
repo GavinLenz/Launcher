@@ -11,10 +11,11 @@ public class ToonListManager {
 
     private static ToonListManager instance;  // Singleton instance
     private ObservableList<Toon> toons;  // ObservableList to track and update UI
-    private final ToonFileManager fileManager = new ToonFileManager();  // File manager for I/O
+    private final ToonFileManager fileManager;  // File manager for I/O
 
     // Private constructor for Singleton
     private ToonListManager() {
+        fileManager = new ToonFileManager();
         List<Toon> loadedToons = fileManager.loadToonsFromFile();  // Load from file
         this.toons = FXCollections.observableArrayList(loadedToons);  // Wrap in ObservableList
     }

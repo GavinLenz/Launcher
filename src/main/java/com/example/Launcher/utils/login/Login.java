@@ -1,18 +1,21 @@
-package com.example.Launcher.utils;
+package com.example.Launcher.utils.login;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import com.example.Launcher.utils.launcher.Launcher;
+import com.example.Launcher.utils.ui.AlertManager;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.HashMap;
 
 import static java.net.http.HttpClient.newHttpClient;
+
+import javafx.scene.control.Alert;
 
 public class Login {
     private final String URL = "https://www.toontownrewritten.com/api/login?format=json";
@@ -24,44 +27,9 @@ public class Login {
         loginDetails.put("password", password);
     }
 
-    // Needs to be fixed
     public static void startLogin(String username, String password) {
-        if (verifyCredentials(username, password)) {
-            Login loginAttempt = new Login(username, password);
-            loginAttempt.sendHttpRequest();
-        } else {
-            System.out.println("Invalid username or password.");
-        }
-    }
-
-    public static boolean verifyCredentials(String username, String password) {
-        String filePath = "src/main/resources/toons_data.txt";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] details = line.split(",");
-                if (details.length == 3) {
-                    String storedUsername = details[1].trim();
-                    String storedPassword = details[2].trim();
-
-                    // Debug statement to check what credentials are being compared
-                    System.out.println("Comparing entered username: " + username + " with stored username: " + storedUsername);
-                    System.out.println("Comparing entered password: " + password + " with stored password: " + storedPassword);
-
-                    // Comparing stored credentials with entered credentials
-                    if (storedUsername.equals(username) && storedPassword.equals(password)) {
-                        System.out.println("Credentials match!");
-                        return true;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Credentials do not match.");
-        return false;
+        Login loginAttempt = new Login(username, password);
+        loginAttempt.sendHttpRequest();
     }
 
     private void sendHttpRequest() {
@@ -104,22 +72,47 @@ public class Login {
 
     private void handleResponse(Map<String, String> response) {
         String success = response.get("success");
+
         switch (success) {
             case "false":
-                System.out.println("Login failed: " + response.get("banner"));
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Unsuccessful Login", response.get("banner"));
+                break;
+            case "partial":
+                // TO-DO
+                // New pop-up window displaying banner AND getting auth token from user
+                // response.get("banner");
                 break;
             case "true":
-                System.out.println("Login successful!");
                 String gameserver = response.get("gameserver");
                 String cookie = response.get("cookie");
                 String manifest = response.get("manifest");
-                new Launcher(gameserver, cookie, manifest);
+                Launcher.startLaunch(gameserver, cookie, manifest);
                 break;
             case "delayed":
-                System.out.println("Queued: position " + response.get("position") + ", ETA: " + response.get("eta"));
+                String eta = response.get("eta");
+                String position = response.get("position");
+                
+                try {
+                    System.err.println(eta + ", " + position);
+                    // TO-DO
+                    // new pop-up window to display eta and position in queue to user
+                    TimeUnit.SECONDS.sleep(30);
+                } 
+                catch (InterruptedException e) {
+                    // TO-DO
+                    // new pop-up window to display error
+                    return;
+                }
+
+                loginDetails.clear();
+                loginDetails.put("queueToken", response.get("queueToken"));
+                sendHttpRequest();
                 break;
             default:
-                System.out.println("Unknown response: " + success);
+                // TO-DO
+                // New window pop-up to inform the user that the 
+                // TTR login API has sent a response that we don't know about
         }
     }
+
 }

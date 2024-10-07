@@ -1,4 +1,4 @@
-package com.example.Launcher.utils;
+package com.example.Launcher.utils.launcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,18 +12,21 @@ public class Launcher {
     private String manifest;
     private String path;
 
-    public Launcher (String gameserver, String cookie, String manifest) {
+    private Launcher (String gameserver, String cookie, String manifest) {
         this.gameserver = gameserver;
         this.cookie = cookie;
         this.manifest = manifest;
 
         // get path from config file instead
         path = "C:/Program Files (x86)/Toontown Rewritten/";
-
-        launchGame();
     }
 
-    public void launchGame() {
+    public static void startLaunch(String gameserver, String cookie, String manifest) {
+        Launcher launchAttempt = new Launcher(gameserver, cookie, manifest);
+        launchAttempt.launchGame();
+    }
+
+    private void launchGame() {
         ProcessBuilder pb = new ProcessBuilder(path + "TTREngine64.exe");
 
         // IMPORTANT - path cannot have the executable file included
@@ -42,5 +45,10 @@ public class Launcher {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getPath() {
+        
+        return null;
     }
 }

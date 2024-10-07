@@ -47,6 +47,7 @@ bin/
 # Ignore specific files
 /Users/gavinlenz/Code
 
-# Ignore toon data
+# Ignore toon data and config
 toons_data.txt
+config
 

@@ -8,6 +8,7 @@ import com.example.Launcher.models.Toon;
 import com.example.Launcher.models.manager.ToonListManager;
 import com.example.Launcher.patterns.command.AddToonCommand;
 import com.example.Launcher.patterns.command.Command;
+import com.example.Launcher.utils.ui.AlertManager;
 
 public class ToonFormController {
 

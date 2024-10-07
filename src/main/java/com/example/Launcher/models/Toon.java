@@ -10,7 +10,7 @@ public class Toon {
     private String password;
     private boolean selected;  // To track selection status in UI
 
-    private PlayStrategy playStrategy = new DefaultPlayStrategy();
+    private PlayStrategy playStrategy;
 
     // Constructor
     public Toon(String name, String username, String password) {
@@ -18,6 +18,8 @@ public class Toon {
         this.username = username;
         this.password = password;
         this.selected = false;  // Initialize with not selected
+
+        playStrategy = new DefaultPlayStrategy();
     }
 
     // Method to play the toon (uses the play strategy)
