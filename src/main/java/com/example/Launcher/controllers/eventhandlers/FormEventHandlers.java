@@ -21,11 +21,13 @@ public class FormEventHandlers {
 
     private DisplayController displayController;
 
+    // Setter for DisplayController
     public void setDisplayController(DisplayController displayController) {
         this.displayController = displayController;
     }
 
     @FXML
+    // Save Toon to DisplayController
     public void saveToon() {
         String name = nameField.getText();
         String username = usernameField.getText();

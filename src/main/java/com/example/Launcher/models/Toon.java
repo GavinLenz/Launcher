@@ -10,6 +10,7 @@ public class Toon implements Serializable {
     private String password;
     private boolean selected;  // Add this field for checkbox selection
 
+    // Constructor
     public Toon(String name, String username, String password) {
         this.name = name;
         this.username = username;
@@ -41,5 +42,9 @@ public class Toon implements Serializable {
     @Override
     public String toString() {
         return name;  // Simplified for display
+    }
+
+    public void launch() {
+        System.out.println("Launching " + name + "...");
     }
 }

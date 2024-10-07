@@ -22,6 +22,7 @@ public class ToonEventHandlers {
     private ToonListInitializer uiInitializer;
     private Stage primaryStage;  // Store the reference to primaryStage
 
+    // Constructor
     public ToonEventHandlers(ToonListManager toonManager, ListView<Toon> toonsListView,
                              DisplayController displayController, ToonListInitializer uiInitializer) {
         this.toonManager = toonManager;

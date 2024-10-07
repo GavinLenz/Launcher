@@ -12,7 +12,7 @@ public class FormValidator {
         return username != null && !username.isEmpty();
     }
 
-    public static boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password)  {
         return password != null && !password.isEmpty();
     }
 }

@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.example.Launcher.models.Toon;
 import com.example.Launcher.controllers.DisplayController;
+import com.example.Launcher.models.manager.ToonListManager;
 
 public class ToonFormController {
 
@@ -20,6 +21,9 @@ public class ToonFormController {
     private DisplayController displayController;
     private Stage formStage;
 
+    // Reference to Singleton ToonListManager
+    private ToonListManager toonManager = ToonListManager.getInstance();
+
     // Setter for DisplayController to communicate back
     public void setDisplayController(DisplayController displayController) {
         this.displayController = displayController;
@@ -30,8 +34,8 @@ public class ToonFormController {
         this.formStage = formStage;
     }
 
-    // Called when the user clicks the "Save" button
     @FXML
+    // Called when the user clicks the "Save" button
     private void handleSave() {
         String name = nameField.getText();
         String username = usernameField.getText();
@@ -40,8 +44,13 @@ public class ToonFormController {
         if (validateInput(name, username, password)) {
             Toon newToon = new Toon(name, username, password);
 
-            // Add the Toon to the manager and update the list
-            displayController.addToon(newToon);
+            // Add the Toon to the Singleton ToonListManager and update the list
+            toonManager.addToon(newToon);
+
+            // Ensure the displayController updates the UI list
+            if (displayController != null) {
+                displayController.addToon(newToon);
+            }
 
             // Close the form
             formStage.close();

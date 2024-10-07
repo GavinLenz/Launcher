@@ -28,7 +28,7 @@ public class AlertManager {
         alert.showAndWait();
     }
 
-    public static void errorAlert(Alert.AlertType alertType, String title, String content) {
+    public static void showErrorAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
