@@ -12,7 +12,7 @@
 
     <HBox alignment="CENTER" spacing="10">
         <Button text="Add Toon" onAction="#openAddToonForm" />
-        <Button text="Play" onAction="#playSelectedToon" />
+        <Button fx:id="playButton" text="Play" onAction="#playSelectedToon" />
     </HBox>
 
 </VBox>

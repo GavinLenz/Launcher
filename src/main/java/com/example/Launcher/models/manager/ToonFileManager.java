@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ToonFileManager {
 
-    private static final String TOON_FILE_PATH = "src/main/resources/toons_data.txt"; // Path to your file
+    private static final String TOON_FILE_PATH = "src/main/resources/com/example/Launcher/toons_data.txt"; // Path to your file
 
     // Load toons from a text file
     public List<Toon> loadToonsFromFile() {

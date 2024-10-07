@@ -1,11 +1,13 @@
 package com.example.Launcher.controllers.forms;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.example.Launcher.models.Toon;
-import com.example.Launcher.controllers.DisplayController;
 import com.example.Launcher.models.manager.ToonListManager;
+import com.example.Launcher.patterns.command.AddToonCommand;
+import com.example.Launcher.patterns.command.Command;
 
 public class ToonFormController {
 
@@ -18,16 +20,10 @@ public class ToonFormController {
     @FXML
     private TextField passwordField;
 
-    private DisplayController displayController;
     private Stage formStage;
 
     // Reference to Singleton ToonListManager
-    private ToonListManager toonManager = ToonListManager.getInstance();
-
-    // Setter for DisplayController to communicate back
-    public void setDisplayController(DisplayController displayController) {
-        this.displayController = displayController;
-    }
+    private final ToonListManager toonManager = ToonListManager.getInstance();
 
     // Method to set the form's stage, to close it later if needed
     public void setFormStage(Stage formStage) {
@@ -44,19 +40,21 @@ public class ToonFormController {
         if (validateInput(name, username, password)) {
             Toon newToon = new Toon(name, username, password);
 
-            // Add the Toon to the Singleton ToonListManager and update the list
-            toonManager.addToon(newToon);
+            // Use the command pattern to add the Toon
+            Command addCommand = new AddToonCommand(toonManager, newToon);
+            addCommand.execute();  // This adds the toon to the Singleton ToonListManager
 
-            // Ensure the displayController updates the UI list
-            if (displayController != null) {
-                displayController.addToon(newToon);
-            }
+            // No need to directly interact with DisplayController as the ObservableList will auto-update
 
             // Close the form
             formStage.close();
         } else {
-            // Show error message (can add an alert here)
-            System.out.println("Please enter valid Toon details.");
+            // Show error message using an alert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input");
+            alert.setHeaderText("Input Validation Error");
+            alert.setContentText("Please enter valid Toon details.");
+            alert.showAndWait();
         }
     }
 

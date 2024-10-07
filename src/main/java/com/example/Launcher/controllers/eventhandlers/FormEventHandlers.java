@@ -2,9 +2,10 @@ package com.example.Launcher.controllers.eventhandlers;
 
 import com.example.Launcher.controllers.DisplayController;
 import com.example.Launcher.models.Toon;
+import com.example.Launcher.patterns.command.AddToonCommand;
+import com.example.Launcher.patterns.command.Command;
+import com.example.Launcher.models.manager.ToonListManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -12,22 +13,17 @@ public class FormEventHandlers {
 
     @FXML
     private TextField nameField;
-
     @FXML
     private TextField usernameField;
-
     @FXML
-    private PasswordField passwordField;
+    private TextField passwordField;
 
-    private DisplayController displayController;
-
-    // Setter for DisplayController
     public void setDisplayController(DisplayController displayController) {
-        this.displayController = displayController;
+        // No need to do anything here
     }
 
     @FXML
-    // Save Toon to DisplayController
+    // Called when the user clicks the "Save" button
     public void saveToon() {
         String name = nameField.getText();
         String username = usernameField.getText();
@@ -35,21 +31,19 @@ public class FormEventHandlers {
 
         // Ensure no field is empty before proceeding
         if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "All fields must be filled.");
-            alert.show();
+            System.out.println("All fields must be filled.");
             return;
         }
 
-        if (displayController != null) {
-            Toon toon = new Toon(name, username, password);
-            displayController.addToon(toon); // Pass new Toon to DisplayController
-            closeForm();
-        } else {
-            System.out.println("Error: DisplayController is null.");
-        }
+        Toon newToon = new Toon(name, username, password);
+
+        // Use the Command Pattern to add the Toon
+        Command addToonCommand = new AddToonCommand(ToonListManager.getInstance(), newToon);
+        addToonCommand.execute();  // Add the Toon to the ToonListManager
+
+        closeForm();  // Close the form window after adding
     }
 
-    @FXML
     public void closeForm() {
         Stage stage = (Stage) nameField.getScene().getWindow();
         stage.close();
