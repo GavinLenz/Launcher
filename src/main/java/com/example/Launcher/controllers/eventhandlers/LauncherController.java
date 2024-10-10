@@ -7,17 +7,11 @@ import java.util.List;
 
 public class LauncherController {
 
-    // Reference the Singleton instance of ToonListManager
-    private ToonListManager toonListManager;
-
-    // Constructor
-    public LauncherController() {
-        // Get the Singleton instance instead of creating a new instance
-        this.toonListManager = ToonListManager.getInstance();
-    }
-
     // Method to launch toons using the strategy pattern
     public void launchToons(List<Toon> toons) {
+        // Get Singleton instance directly inside the method (if needed)
+        ToonListManager toonListManager = ToonListManager.getInstance();
+
         for (Toon toon : toons) {
             toon.play();  // Call the play method, which uses the current play strategy
         }

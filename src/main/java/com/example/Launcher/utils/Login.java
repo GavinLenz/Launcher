@@ -1,8 +1,7 @@
-package com.example.Launcher.utils.login;
+package com.example.Launcher.utils;
 
 import org.json.JSONObject;
 
-import com.example.Launcher.utils.launcher.Launcher;
 import com.example.Launcher.utils.ui.AlertManager;
 
 import java.net.URI;
@@ -18,13 +17,12 @@ import static java.net.http.HttpClient.newHttpClient;
 import javafx.scene.control.Alert;
 
 public class Login {
-    private final String URL = "https://www.toontownrewritten.com/api/login?format=json";
-    private final Map<String, String> loginDetails;
+    private final Map<String, String> LOGIN_DETAILS;
 
     private Login(String username, String password) {
-        loginDetails = new HashMap<>();
-        loginDetails.put("username", username);
-        loginDetails.put("password", password);
+        LOGIN_DETAILS = new HashMap<>();
+        LOGIN_DETAILS.put("username", username);
+        LOGIN_DETAILS.put("password", password);
     }
 
     public static void startLogin(String username, String password) {
@@ -36,6 +34,7 @@ public class Login {
         HttpClient client = newHttpClient();
         HttpResponse<String> httpResponse;
 
+        String URL = "https://www.toontownrewritten.com/api/login?format=json";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL))
                 .header("Content-Type", "application/x-www-form-urlencoded; text/plain; charset=UTF-8")
@@ -54,8 +53,8 @@ public class Login {
 
     private String buildUrlParameter() {
         StringBuilder parameter = new StringBuilder();
-        for (Map.Entry<String, String> entry : loginDetails.entrySet()) {
-            if (parameter.length() > 0) {
+        for (Map.Entry<String, String> entry : LOGIN_DETAILS.entrySet()) {
+            if (!parameter.isEmpty()) {
                 parameter.append("&");
             }
             parameter.append(entry.getKey()).append("=").append(entry.getValue());
@@ -73,46 +72,37 @@ public class Login {
     private void handleResponse(Map<String, String> response) {
         String success = response.get("success");
 
-        switch (success) {
-            case "false":
-                AlertManager.showAlert(Alert.AlertType.ERROR, "Unsuccessful Login", response.get("banner"));
-                break;
-            case "partial":
-                // TO-DO
-                // New pop-up window displaying banner AND getting auth token from user
-                // response.get("banner");
-                break;
-            case "true":
-                String gameserver = response.get("gameserver");
-                String cookie = response.get("cookie");
-                String manifest = response.get("manifest");
-                Launcher.startLaunch(gameserver, cookie, manifest);
-                break;
-            case "delayed":
-                String eta = response.get("eta");
-                String position = response.get("position");
-                
-                try {
-                    System.err.println(eta + ", " + position);
-                    // TO-DO
-                    // new pop-up window to display eta and position in queue to user
-                    TimeUnit.SECONDS.sleep(30);
-                } 
-                catch (InterruptedException e) {
-                    // TO-DO
-                    // new pop-up window to display error
-                    return;
-                }
+        if ("false".equals(success)) {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Unsuccessful Login", response.get("banner"));
+            return;
+        }
 
-                loginDetails.clear();
-                loginDetails.put("queueToken", response.get("queueToken"));
-                sendHttpRequest();
-                break;
-            default:
-                // TO-DO
-                // New window pop-up to inform the user that the 
-                // TTR login API has sent a response that we don't know about
+        if ("true".equals(success)) {
+            String gameserver = response.get("gameserver");
+            String cookie = response.get("cookie");
+            String manifest = response.get("manifest");
+
+            if (gameserver == null || cookie == null || manifest == null) {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Missing response values.");
+            } else {
+                Launcher.startLaunch(gameserver, cookie, manifest);
+            }
+        } else if ("delayed".equals(success)) {
+            String eta = response.get("eta");
+            String position = response.get("position");
+            System.err.println(eta + ", " + position);
+
+            try {
+                TimeUnit.SECONDS.sleep(30);
+            } catch (InterruptedException e) {
+                return;
+            }
+
+            LOGIN_DETAILS.clear();
+            LOGIN_DETAILS.put("queueToken", response.get("queueToken"));
+            sendHttpRequest();
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Unknown Response", "Unexpected response from TTR API.");
         }
     }
-
 }

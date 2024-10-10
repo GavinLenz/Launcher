@@ -25,8 +25,8 @@ public class Main extends Application {
             primaryStage.setTitle("Toontown Launcher");
             primaryStage.setResizable(false);
 
-            // Apply stylesheets to the scene
-            String stylesheetPath = getClass().getResource("/com/example/Launcher/styles.css").toExternalForm();
+            // Apply stylesheets to the scene, implement StyleManager
+            String stylesheetPath = Objects.requireNonNull(getClass().getResource("/com/example/Launcher/styles.css")).toExternalForm();
             if (stylesheetPath != null) {
                 primaryStage.getScene().getStylesheets().add(stylesheetPath);
             } else {

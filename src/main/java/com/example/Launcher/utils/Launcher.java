@@ -1,4 +1,4 @@
-package com.example.Launcher.utils.launcher;
+package com.example.Launcher.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,13 +12,13 @@ public class Launcher {
     private String manifest;
     private String path;
 
-    private Launcher (String gameserver, String cookie, String manifest) {
+    private Launcher(String gameserver, String cookie, String manifest) {
         this.gameserver = gameserver;
         this.cookie = cookie;
         this.manifest = manifest;
 
         // get path from config file instead
-        path = "C:/Program Files (x86)/Toontown Rewritten/";
+        path = System.getProperty("user.home") + "/Library/Application Support/Toontown Rewritten/Toontown Rewritten.app/Contents/MacOS/";
     }
 
     public static void startLaunch(String gameserver, String cookie, String manifest) {
@@ -27,19 +27,25 @@ public class Launcher {
     }
 
     private void launchGame() {
-        ProcessBuilder pb = new ProcessBuilder(path + "TTREngine64.exe");
+        File executableFile = new File(path, "./TTREngine");
 
-        // IMPORTANT - path cannot have the executable file included
-        // sets the working directory (also where start() will run)
+        // Check if the file exists and is executable
+        if (!executableFile.exists() || !executableFile.canExecute()) {
+            System.err.println("Executable not found or not executable: " + executableFile.getAbsolutePath());
+            return;
+        }
+
+        ProcessBuilder pb = new ProcessBuilder("./TTREngine");
+
+        // Set working directory without the executable in the path
         pb.directory(new File(path));
 
-        // clears current environment variables and adds gameserver and cookie
+        // Clear environment variables and set the necessary ones
         Map<String, String> env = pb.environment();
         env.clear();
         env.put("TTR_GAMESERVER", gameserver);
         env.put("TTR_PLAYCOOKIE", cookie);
-        
-        // executes the command
+
         try {
             pb.start();
         } catch (IOException e) {
@@ -48,7 +54,7 @@ public class Launcher {
     }
 
     private String getPath() {
-        
+
         return null;
     }
 }

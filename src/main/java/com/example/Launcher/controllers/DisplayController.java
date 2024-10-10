@@ -1,9 +1,9 @@
 package com.example.Launcher.controllers;
 
 import com.example.Launcher.controllers.eventhandlers.FormEventHandlers;
-import com.example.Launcher.controllers.eventhandlers.ToonEventHandlers;
 import com.example.Launcher.models.Toon;
 import com.example.Launcher.models.manager.ToonListManager;
+import com.example.Launcher.utils.game.LoginHandler;
 import com.example.Launcher.utils.ui.ToonListInitializer;
 import com.example.Launcher.controllers.eventhandlers.LauncherController;
 import javafx.fxml.FXML;
@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -21,6 +22,7 @@ import javafx.beans.value.ObservableValue;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DisplayController {
@@ -32,35 +34,26 @@ public class DisplayController {
     private Button playButton; // Ensure this is properly bound to the FXML with fx:id="playButton"
 
     private LauncherController launcherController;  // Handles launching toons
-    private ToonEventHandlers eventHandlers;        // Handles form and interaction events
     private ToonListInitializer uiInitializer;      // For ListView management
-    private Stage primaryStage;  // Variable to hold the primary stage reference
-
+    private Stage primaryStage;
 
     @FXML
     // Initialize the controller
     public void initialize() {
-        // Get the singleton instance of ToonListManager
-        ToonListManager toonManager = ToonListManager.getInstance();
-
-        // Initialize UI initializer with the singleton manager
+        ToonListManager toonManager = ToonListManager.getInstance(); // Get the singleton instance of ToonListManager
         uiInitializer = new ToonListInitializer(toonsListView, toonManager);  // Assign to class-level field
+        launcherController = new LauncherController(); // Initialize the LauncherController (for launching toons)
 
-        // Initialize the LauncherController (for launching toons)
-        launcherController = new LauncherController();  // Ensure launcherController is initialized
-
-        // Set up the ListView with a checkbox and display only the name
+        // Set up the ListView with a checkbox and display the name
         setupToonListView();
     }
 
     // Set the primary stage reference, used for various UI operations
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        if (eventHandlers != null) {
-            eventHandlers.setPrimaryStage(primaryStage);  // Pass primaryStage to event handlers
-        }
     }
 
+    // Setup ListView to handle Toon selection with checkboxes
     private void setupToonListView() {
         toonsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);  // Enable multiple selection
 
@@ -112,8 +105,8 @@ public class DisplayController {
         }
     }
 
-    // Method to open the Add Toon form
     @FXML
+    // Method to open the Add Toon form (this was previously in ToonEventHandlers)
     public void addToonClicked() {
         try {
             // Load the Add Toon form (Form.fxml)
@@ -123,17 +116,15 @@ public class DisplayController {
             // Get the controller for Form.fxml
             FormEventHandlers formController = loader.getController();
 
-            if (formController == null) {
-                throw new IllegalStateException("FormEventHandlers controller is null.");
-            }
-
             // Set this DisplayController in FormEventHandlers (for communication)
             formController.setDisplayController(this);
 
             // Create a new stage (window) for the form
             Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Set modality for the new window
             stage.setTitle("Add Toon");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.showAndWait();  // Wait for the form to close before resuming the calling method
         } catch (IOException e) {
             e.printStackTrace();

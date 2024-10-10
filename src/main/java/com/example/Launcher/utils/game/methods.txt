@@ -1,0 +1,32 @@
+@FXML
+    // Method to play the selected toons when the "Play" button is pressed
+    public void playClicked() {
+        // Get all toons from the ToonListManager
+        ToonListManager toonManager = ToonListManager.getInstance();
+        List<Toon> selectedToons = toonManager.getSelectedToons(); // Assuming you have a method to get selected toons
+
+        if (!selectedToons.isEmpty()) {
+            // Loop through selected toons and start the login process for each
+            for (Toon toon : selectedToons) {
+                String username = toon.getUsername();
+                String password = toon.getPassword();
+
+                // Check the OS
+                String osName = System.getProperty("os.name").toLowerCase();
+
+                if (osName.contains("mac")) {
+                    // macOS detected, use LoginHandler
+                    System.out.println("macOS detected. Starting login process for: " + toon.getName());
+                    LoginHandler.startLogin(username, password);  // Initiate login for macOS
+                } else if (osName.contains("win")) {
+                    // Windows detected, use launcherController
+                    System.out.println("Windows detected. Launching Toon: " + toon.getName());
+                    launcherController.launchToons(selectedToons);  // Initiate the launching process for Windows
+                } else {
+                    System.out.println("Unsupported OS detected.");
+                }
+            }
+        } else {
+            System.out.println("No toons selected.");
+        }
+    }

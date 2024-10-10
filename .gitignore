@@ -51,3 +51,6 @@ bin/
 toons_data.txt
 config
 
+# Ignore game package until finished, work in progress
+src/main/java/utils/game/
+
