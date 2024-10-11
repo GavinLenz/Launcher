@@ -1,4 +1,4 @@
-package com.example.ToontownLauncher.launcher;
+package com.example.ToontownLauncher.utils.game;
 
 import java.io.File;
 import java.io.IOException;

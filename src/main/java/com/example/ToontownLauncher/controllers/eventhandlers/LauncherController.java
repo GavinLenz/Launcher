@@ -3,8 +3,8 @@ package com.example.ToontownLauncher.controllers.eventhandlers;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.ToontownLauncher.launcher.Launcher;
-import com.example.ToontownLauncher.login.Login;
+import com.example.ToontownLauncher.utils.game.Launcher;
+import com.example.ToontownLauncher.utils.game.Login;
 import com.example.ToontownLauncher.models.Toon;
 import com.example.ToontownLauncher.utils.ui.AlertManager;
 

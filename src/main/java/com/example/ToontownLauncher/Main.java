@@ -1,9 +1,12 @@
 package com.example.ToontownLauncher;
 
+import com.example.ToontownLauncher.utils.ui.StyleManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.net.URL;
 import java.util.Objects;
 
 import com.example.ToontownLauncher.controllers.DisplayController;
@@ -11,6 +14,8 @@ import com.example.ToontownLauncher.controllers.DisplayController;
 import java.io.IOException;
 
 public class Main extends Application {
+
+    private final String CSS_PATH = "/com/example/ToontownLauncher/styles.css";  // Path to your CSS file
 
     @Override
     public void start(Stage primaryStage) {
@@ -23,12 +28,12 @@ public class Main extends Application {
             primaryStage.setTitle("Toontown Launcher");
             primaryStage.setResizable(false);
 
-            // Apply stylesheets to the scene, implement StyleManager
-            String stylesheetPath = Objects.requireNonNull(getClass().getResource("/com/example/ToontownLauncher/styles.css")).toExternalForm();
-            if (stylesheetPath != null) {
-                primaryStage.getScene().getStylesheets().add(stylesheetPath);
+            StyleManager styleManager = new StyleManager();
+            URL stylesheetURL = getClass().getResource(CSS_PATH);
+            if (stylesheetURL != null) {
+                styleManager.applyStylesheet(primaryStage.getScene(), stylesheetURL.toExternalForm());
             } else {
-                System.err.println("Warning: Stylesheet could not be loaded.");
+                System.out.println("Stylesheet not found: " + CSS_PATH);
             }
 
             DisplayController controller = loader.getController();

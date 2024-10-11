@@ -1,4 +1,4 @@
-package com.example.ToontownLauncher.login;
+package com.example.ToontownLauncher.utils.game;
 
 import org.json.JSONObject;
 
