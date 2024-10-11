@@ -1,4 +1,4 @@
-module com.example.Launcher {
+module com.example.ToontownLauncher {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -22,11 +22,11 @@ module com.example.Launcher {
     requires com.fasterxml.jackson.databind;
 
     // Open packages to javafx.fxml for reflection
-    opens com.example.Launcher to javafx.fxml;
-    opens com.example.Launcher.controllers.eventhandlers to javafx.fxml;
-    opens com.example.Launcher.controllers to javafx.fxml;
-    opens com.example.Launcher.utils.ui to javafx.fxml;
+    opens com.example.ToontownLauncher to javafx.fxml;
+    opens com.example.ToontownLauncher.controllers.eventhandlers to javafx.fxml;
+    opens com.example.ToontownLauncher.controllers to javafx.fxml;
+    opens com.example.ToontownLauncher.utils.ui to javafx.fxml;
 
     // Export public packages
-    exports com.example.Launcher;
+    exports com.example.ToontownLauncher;
 }

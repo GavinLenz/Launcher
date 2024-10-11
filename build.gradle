@@ -6,7 +6,7 @@ plugins {
     id 'org.beryx.jlink' version '2.25.0'
 }
 
-group 'com.example.Launcher'
+group 'com.example.ToontownLauncher'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -24,8 +24,8 @@ java {
 }
 
 application {
-    mainModule = 'com.example.Launcher'
-    mainClass = 'com.example.Launcher.Main'
+    mainModule = 'com.example.ToontownLauncher'
+    mainClass = 'com.example.ToontownLauncher.Main'
 }
 
 javafx {
