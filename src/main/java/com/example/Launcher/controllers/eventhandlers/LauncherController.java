@@ -7,7 +7,9 @@ import java.util.List;
 
 public class LauncherController {
 
-    // Method to launch toons using the strategy pattern
+    // File needs changed
+
+
     public void launchToons(List<Toon> toons) {
         // Get Singleton instance directly inside the method (if needed)
         ToonListManager toonListManager = ToonListManager.getInstance();

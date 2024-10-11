@@ -16,11 +16,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Load the FXML and create the scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Launcher/Display.fxml"));
             Scene scene = new Scene(loader.load(), 500, 320);
 
-            // Set the scene and window title
             primaryStage.setScene(scene);
             primaryStage.setTitle("Toontown Launcher");
             primaryStage.setResizable(false);
@@ -33,20 +31,17 @@ public class Main extends Application {
                 System.err.println("Warning: Stylesheet could not be loaded.");
             }
 
-            // Get the controller and set the primary stage
             DisplayController controller = loader.getController();
             if (controller == null) {
                 throw new IllegalStateException("DisplayController is null.");
             }
             controller.setPrimaryStage(primaryStage);
 
-            // Show the primary stage
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Error loading the FXML file for the display: " + e.getMessage());
             e.printStackTrace();
         } catch (IllegalStateException e) {
-            // Handle potential issues such as a null controller
             System.err.println("Error setting up the main window: " + e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {

@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class FormEventHandlers {
+public class AddToonController {
 
     @FXML
     private TextField nameField;
@@ -17,13 +17,11 @@ public class FormEventHandlers {
     @FXML
     private TextField passwordField;
 
-    // This method is no longer required, but kept for future needs
     public void setDisplayController(DisplayController displayController) {
         // Link the DisplayController to this controller
     }
 
     @FXML
-    // Called when the  user clicks the "Save" button
     public void saveToon() {
         String name = nameField.getText();
         String username = usernameField.getText();
@@ -39,12 +37,12 @@ public class FormEventHandlers {
 
         // Use the Command Pattern to add the Toon (No need to pass ToonListManager now)
         Command addToonCommand = new AddToonCommand(newToon);
-        addToonCommand.execute();  // Add the Toon to the ToonListManager
+        addToonCommand.execute();
 
-        closeForm();  // Close the form window after adding
+        closeForm();
     }
 
-    // Method to close the form
+    @FXML
     public void closeForm() {
         Stage stage = (Stage) nameField.getScene().getWindow();
         stage.close();
