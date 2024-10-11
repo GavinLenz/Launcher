@@ -35,6 +35,7 @@ public class DisplayController {
     @FXML
     private Button playButton; // Ensure this is properly bound to the FXML with fx:id="playButton"
 
+    private final String CSS_PATH = "/com/example/ToontownLauncher/styles.css";
     private ToonListInitializer uiInitializer;      // For ListView management
     private Stage primaryStage;
 
@@ -112,11 +113,11 @@ public class DisplayController {
             stage.setResizable(false);
 
             StyleManager styleManager = new StyleManager();
-            URL stylesheetURL = getClass().getResource("/com/example/ToontownLauncher/styles.css");
+            URL stylesheetURL = getClass().getResource(CSS_PATH);
             if (stylesheetURL != null) {
                 styleManager.applyStylesheet(stage.getScene(), stylesheetURL.toExternalForm());
             } else {
-                System.out.println("Stylesheet not found: /com/example/ToontownLauncher/styles.css");
+                System.out.println("Stylesheet not found: " + CSS_PATH);
             }
 
             stage.showAndWait();  // Wait for the form to close before resuming the calling method
@@ -147,11 +148,11 @@ public class DisplayController {
             stage.setResizable(false);
 
             StyleManager styleManager = new StyleManager();
-            URL stylesheetURL = getClass().getResource("/com/example/ToontownLauncher/styles.css");
+            URL stylesheetURL = getClass().getResource(CSS_PATH);
             if (stylesheetURL != null) {
                 styleManager.applyStylesheet(stage.getScene(), stylesheetURL.toExternalForm());
             } else {
-                System.out.println("Stylesheet not found: /com/example/ToontownLauncher/styles.css");
+                System.out.println("Stylesheet not found: " + CSS_PATH);
             }
 
             stage.showAndWait();  // Wait for the form to close before resuming the calling method
