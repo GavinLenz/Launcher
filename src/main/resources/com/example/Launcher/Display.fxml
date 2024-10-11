@@ -11,8 +11,8 @@
     <ListView fx:id="toonsListView" />
 
     <HBox alignment="CENTER" spacing="10">
-        <Button text="Add Toon" onAction="#openAddToonForm" />
-        <Button text="Play" onAction="#playSelectedToon" />
+        <Button text="Add Toon" onAction="#openAddToon" />
+        <Button fx:id="playButton" text="Play" onAction="#playClicked" />
     </HBox>
 
 </VBox>

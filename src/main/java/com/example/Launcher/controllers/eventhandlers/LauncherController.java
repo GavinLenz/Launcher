@@ -7,34 +7,15 @@ import java.util.List;
 
 public class LauncherController {
 
-    // Reference the Singleton instance of ToonListManager
-    private ToonListManager toonListManager;
+    // File needs changed
 
-    // Constructor
-    public LauncherController() {
-        // Get the Singleton instance instead of creating a new instance
-        this.toonListManager = ToonListManager.getInstance();
-    }
 
-    // placeholder method to launch toons
     public void launchToons(List<Toon> toons) {
+        // Get Singleton instance directly inside the method (if needed)
+        ToonListManager toonListManager = ToonListManager.getInstance();
+
         for (Toon toon : toons) {
-            toon.launch();  // Launch the toon (assuming you have a launch method in the Toon class)
+            toon.play();  // Call the play method, which uses the current play strategy
         }
-    }
-
-    // Load the toons
-    public List<Toon> loadToons() {
-        return toonListManager.getToons();  // Load the saved toons
-    }
-
-    // Add a toon
-    public void addToon(Toon toon) {
-        toonListManager.addToon(toon);  // Add a new toon and save it
-    }
-
-    // Remove a toon
-    public void removeToon(Toon toon) {
-        toonListManager.removeToon(toon);  // Remove toon and save the updated list
     }
 }

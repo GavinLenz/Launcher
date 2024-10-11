@@ -1,4 +1,4 @@
-package com.example.Launcher.utils.game;
+package com.example.Launcher.utils.ui;
 
 import java.io.File;
 

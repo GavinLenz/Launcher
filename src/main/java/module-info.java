@@ -2,6 +2,9 @@ module com.example.Launcher {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.swing;
+    requires javafx.graphics;
+    requires javafx.media;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -13,6 +16,11 @@ module com.example.Launcher {
     requires java.net.http;
     requires org.json;
 
+    // These are the required modules for Apache HttpClient
+    requires org.apache.httpcomponents.client5.httpclient5;
+    requires org.apache.httpcomponents.core5.httpcore5;
+    requires com.fasterxml.jackson.databind;
+
     // Open packages to javafx.fxml for reflection
     opens com.example.Launcher to javafx.fxml;
     opens com.example.Launcher.controllers.eventhandlers to javafx.fxml;
@@ -21,5 +29,4 @@ module com.example.Launcher {
 
     // Export public packages
     exports com.example.Launcher;
-    exports com.example.Launcher.utils;
 }
