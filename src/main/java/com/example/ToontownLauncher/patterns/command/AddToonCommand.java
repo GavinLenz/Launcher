@@ -6,6 +6,7 @@ import com.example.ToontownLauncher.models.manager.ToonListManager;
 public class AddToonCommand implements Command {
 
     private final Toon toon;
+    ToonListManager toonManager = ToonListManager.getInstance();
 
     public AddToonCommand(Toon toon) {
         this.toon = toon;
@@ -14,6 +15,6 @@ public class AddToonCommand implements Command {
     @Override
     public void execute() {
         // Directly access the Singleton instance
-        ToonListManager.getInstance().addToon(toon);
+        toonManager.addToon(toon);
     }
 }

@@ -10,46 +10,68 @@ import com.example.ToontownLauncher.models.Toon;
 
 public class ToonListManager {
 
-    private static ToonListManager instance;  // Singleton instance
-    private ObservableList<Toon> toons;  // ObservableList to track and update UI
-    private final ToonFileManager fileManager;  // File manager for I/O
+    // Singleton instance
+    private static ToonListManager instance;
 
-    // Private constructor for Singleton
+    // ObservableList to track and update UI
+    private ObservableList<Toon> toons;
+
+    // File manager for I/O
+    private ToonFileManager fileManager;
+
+    // Constructor for Singleton
     private ToonListManager() {
-        fileManager = new ToonFileManager();
+        this.fileManager = new ToonFileManager();
         List<Toon> loadedToons = fileManager.loadToonsFromFile();  // Load from file
-        this.toons = FXCollections.observableArrayList(loadedToons);  // Wrap in ObservableList
+        toons = FXCollections.observableArrayList(loadedToons);    // Wrap in ObservableList
     }
 
-    // Get the singleton instance of ToonListManager
+    // Thread-safe Singleton instance getter
     public static ToonListManager getInstance() {
         if (instance == null) {
-            instance = new ToonListManager();
+            synchronized (ToonListManager.class) {
+                if (instance == null) {
+                    instance = new ToonListManager();
+                }
+            }
         }
         return instance;
     }
 
-    // Get the observable list of toons
     public ObservableList<Toon> getToons() {
         return toons;
     }
 
-    // Add a toon and save to file
     public void addToon(Toon toon) {
-        toons.add(toon);  // Add to the observable list
-        fileManager.saveToonsToFile(toons);  // Save the updated list
+        toons.add(toon);
+        saveToons();
     }
 
-    // Remove a toon and save the updated list
     public void removeToon(Toon toon) {
-        toons.remove(toon);  // Remove from the observable list
-        fileManager.saveToonsToFile(toons);  // Save the updated list
+        toons.remove(toon);
+        saveToons();
+    }
+
+    public void updateToon(Toon updatedToon) {
+        for (Toon toon : toons) {
+            if (toon.getName().equals(updatedToon.getName())) {  // Assuming name is unique
+                toon.setUsername(updatedToon.getUsername());
+                toon.setPassword(updatedToon.getPassword());
+                saveToons();
+                return;
+            }
+        }
+        System.out.println("Toon not found: " + updatedToon.getName());
     }
 
     // Return selected toons (assuming Toon has isSelected() method)
     public List<Toon> getSelectedToons() {
         return toons.stream()
-                .filter(Toon::isSelected)  // Filter toons that are selected
+                .filter(Toon::isSelected)
                 .collect(Collectors.toList());
+    }
+
+    private void saveToons() {
+        fileManager.saveToonsToFile(toons);
     }
 }

@@ -22,11 +22,11 @@ module com.example.ToontownLauncher {
     requires com.fasterxml.jackson.databind;
 
     // Open packages to javafx.fxml for reflection
-    opens com.example.ToontownLauncher to javafx.fxml;
-    opens com.example.ToontownLauncher.controllers.eventhandlers to javafx.fxml;
     opens com.example.ToontownLauncher.controllers to javafx.fxml;
+    opens com.example.ToontownLauncher.controllers.eventhandlers to javafx.fxml;
     opens com.example.ToontownLauncher.utils.ui to javafx.fxml;
 
     // Export public packages
-    exports com.example.ToontownLauncher;
+    exports com.example.ToontownLauncher.controllers;
+    exports com.example.ToontownLauncher to javafx.graphics;
 }

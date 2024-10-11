@@ -2,22 +2,23 @@ package com.example.ToontownLauncher.controllers.eventhandlers;
 
 import java.util.HashMap;
 import java.util.List;
+
+import com.example.ToontownLauncher.launcher.Launcher;
+import com.example.ToontownLauncher.login.Login;
+import com.example.ToontownLauncher.models.Toon;
+import com.example.ToontownLauncher.utils.ui.AlertManager;
+
 import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 
-import com.example.ToontownLauncher.login.Login;
-import com.example.ToontownLauncher.launcher.Launcher;
-import com.example.ToontownLauncher.models.Toon;
-import com.example.ToontownLauncher.utils.ui.AlertManager;
-
 public class LauncherController {
 
-    private List<Login> invalidResponses;
-    private List<Login> twoFAResponses;
-    private List<Login> queuedResponses;
+    private static List<Login> invalidResponses;
+    private static List<Login> twoFAResponses;
+    private static List<Login> queuedResponses;
 
-    public void launchToons(List<Toon> toons) {
+    public static void launchToons(List<Toon> toons) {
         // need to rework this whole for loop, i realised at the end and too tired to do it rn
         for (Toon toon : toons) {
             // starts the login process and gets the API response
@@ -58,7 +59,7 @@ public class LauncherController {
         handleQueued();
     }
 
-    private void handleInvalids() {
+    private static void handleInvalids() {
         if (invalidResponses == null) { return; }
 
         for (Login login : invalidResponses) {
@@ -73,7 +74,7 @@ public class LauncherController {
         invalidResponses = null;
     }
 
-    private void handleTwoFAs() {
+    private static void handleTwoFAs() {
         if (twoFAResponses == null) { return; }
 
         for (Login login : twoFAResponses) {
@@ -88,7 +89,7 @@ public class LauncherController {
     
     // CALL WHEN USER ENTERS CODE VIA THE FORM BUTTON FUNCTION OR SMTH
     // clears loginDetails and sets authToken and appToken for next login attempt
-    private void twoFALogin(int index, String responseToken, String appToken) {
+    private static void twoFALogin(int index, String responseToken, String appToken) {
             Login login = twoFAResponses.get(index);
             HashMap<String, String> loginDetails = login.getLoginDetails();
             loginDetails.clear();
@@ -102,7 +103,7 @@ public class LauncherController {
             twoFAResponses = null;
     }
 
-    private void handleQueued() {
+    private static void handleQueued() {
         if (queuedResponses == null) { return; }
         // fuck queued for now bc this never happens let's be real
     }

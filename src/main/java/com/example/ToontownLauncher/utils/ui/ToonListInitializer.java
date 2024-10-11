@@ -8,8 +8,8 @@ import javafx.scene.control.ListView;
 
 public class ToonListInitializer {
 
-    private ListView<Toon> toonsListView;
-    private ToonListManager toonManager;
+    private final ListView<Toon> toonsListView;
+    private final ToonListManager toonManager;
 
     public ToonListInitializer(ListView<Toon> toonsListView, ToonListManager toonListManager) {
         this.toonsListView = toonsListView;
