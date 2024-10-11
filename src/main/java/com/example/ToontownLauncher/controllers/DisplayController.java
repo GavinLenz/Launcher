@@ -95,7 +95,7 @@ public class DisplayController {
     public void openAddToon() {
         try {
             // Load the Add Toon form (AddToon.fxml)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Launcher/AddToon.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ToontownLauncher/AddToon.fxml"));
             Parent root = loader.load();
 
             // Get the controller for AddToon.fxml
@@ -112,11 +112,11 @@ public class DisplayController {
             stage.setResizable(false);
 
             StyleManager styleManager = new StyleManager();
-            URL stylesheetURL = getClass().getResource("/com/example/Launcher/styles.css");
+            URL stylesheetURL = getClass().getResource("/com/example/ToontownLauncher/styles.css");
             if (stylesheetURL != null) {
                 styleManager.applyStylesheet(stage.getScene(), stylesheetURL.toExternalForm());
             } else {
-                System.out.println("Stylesheet not found: /com/example/Launcher/styles.css");
+                System.out.println("Stylesheet not found: /com/example/ToontownLauncher/styles.css");
             }
 
             stage.showAndWait();  // Wait for the form to close before resuming the calling method
@@ -130,7 +130,7 @@ public class DisplayController {
     private void openEditToon(Toon toon) {
         try {
             // Load the Add Toon form (AddToon.fxml)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Launcher/EditToon.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ToontownLauncher/EditToon.fxml"));
             Parent root = loader.load();
 
             // Get the controller for AddToon.fxml
@@ -147,11 +147,11 @@ public class DisplayController {
             stage.setResizable(false);
 
             StyleManager styleManager = new StyleManager();
-            URL stylesheetURL = getClass().getResource("/com/example/Launcher/styles.css");
+            URL stylesheetURL = getClass().getResource("/com/example/ToontownLauncher/styles.css");
             if (stylesheetURL != null) {
                 styleManager.applyStylesheet(stage.getScene(), stylesheetURL.toExternalForm());
             } else {
-                System.out.println("Stylesheet not found: /com/example/Launcher/styles.css");
+                System.out.println("Stylesheet not found: /com/example/ToontownLauncher/styles.css");
             }
 
             stage.showAndWait();  // Wait for the form to close before resuming the calling method
