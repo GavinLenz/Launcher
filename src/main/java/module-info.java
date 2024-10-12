@@ -29,4 +29,5 @@ module com.example.ToontownLauncher {
     // Export public packages
     exports com.example.ToontownLauncher.controllers;
     exports com.example.ToontownLauncher to javafx.graphics;
+    opens com.example.ToontownLauncher.models.errors to javafx.fxml;
 }

@@ -25,7 +25,7 @@ public class Launcher {
     }
 
     private void launchGame() {
-        File executableFile = new File(path, "TTREngine64.exe");
+        File executableFile = new File(path + "TTREngine64.exe");
 
         // Check if the file exists and is executable
         if (!executableFile.exists() || !executableFile.canExecute()) {
