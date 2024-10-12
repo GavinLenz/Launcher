@@ -3,10 +3,10 @@ package com.example.ToontownLauncher.controllers.eventhandlers;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.ToontownLauncher.launcher.Launcher;
-import com.example.ToontownLauncher.login.Login;
+import com.example.ToontownLauncher.utils.game.Launcher;
+import com.example.ToontownLauncher.utils.game.Login;
 import com.example.ToontownLauncher.models.Toon;
-import com.example.ToontownLauncher.utils.ui.AlertManager;
+import com.example.ToontownLauncher.models.errors.AlertManager;
 
 import java.util.ArrayList;
 
@@ -22,11 +22,13 @@ public class LauncherController {
         // need to rework this whole for loop, i realised at the end and too tired to do it rn
         for (Toon toon : toons) {
             // starts the login process and gets the API response
-            Login currentLogin = new Login(toon.getUsername(), toon.getPassword());
+            Login currentLogin = new Login(toon.getUsername(), toon.getPassword(), new InvalidLoginController());
             currentLogin.sendLoginRequest();
             HashMap<String, String> currentResponse = currentLogin.getResponse();
             String success = currentResponse.get("success");
-            
+
+            System.out.println("Login response: " + currentResponse);
+
             // launches game and skips to next iteration
             if ("true".equals(success)) {
                 Launcher.startLaunch(currentResponse.get("gameserver"), currentResponse.get("cookie"));

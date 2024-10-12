@@ -7,13 +7,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
-<<<<<<<< HEAD:src/main/resources/com/example/ToontownLauncher/Form.fxml
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.ToontownLauncher.controllers.eventhandlers.FormEventHandlers"
-========
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.Launcher.controllers.eventhandlers.AddToonController"
->>>>>>>> c6874869f9b4097230762c21c62510c7cd0ca226:src/main/resources/com/example/ToontownLauncher/AddToon.fxml
+      fx:controller="com.example.ToontownLauncher.controllers.eventhandlers.AddToonController"
       alignment="CENTER" spacing="10" prefHeight="200" prefWidth="250">
 
    <Label text="Add Toon" />

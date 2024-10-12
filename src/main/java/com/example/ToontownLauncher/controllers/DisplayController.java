@@ -35,6 +35,7 @@ public class DisplayController {
     @FXML
     private Button playButton; // Ensure this is properly bound to the FXML with fx:id="playButton"
 
+    private final String CSS_PATH = "/com/example/ToontownLauncher/styles.css";  // Path to your CSS file
     private ToonListInitializer uiInitializer;      // For ListView management
     private Stage primaryStage;
 
@@ -95,7 +96,7 @@ public class DisplayController {
     public void openAddToon() {
         try {
             // Load the Add Toon form (AddToon.fxml)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Launcher/AddToon.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ToontownLauncher/AddToon.fxml"));
             Parent root = loader.load();
 
             // Get the controller for AddToon.fxml
@@ -112,11 +113,11 @@ public class DisplayController {
             stage.setResizable(false);
 
             StyleManager styleManager = new StyleManager();
-            URL stylesheetURL = getClass().getResource("/com/example/Launcher/styles.css");
+            URL stylesheetURL = getClass().getResource(CSS_PATH);
             if (stylesheetURL != null) {
                 styleManager.applyStylesheet(stage.getScene(), stylesheetURL.toExternalForm());
             } else {
-                System.out.println("Stylesheet not found: /com/example/Launcher/styles.css");
+                System.out.println("Stylesheet not found: " + CSS_PATH);
             }
 
             stage.showAndWait();  // Wait for the form to close before resuming the calling method
@@ -130,7 +131,7 @@ public class DisplayController {
     private void openEditToon(Toon toon) {
         try {
             // Load the Add Toon form (AddToon.fxml)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Launcher/EditToon.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ToontownLauncher/EditToon.fxml"));
             Parent root = loader.load();
 
             // Get the controller for AddToon.fxml
@@ -147,11 +148,11 @@ public class DisplayController {
             stage.setResizable(false);
 
             StyleManager styleManager = new StyleManager();
-            URL stylesheetURL = getClass().getResource("/com/example/Launcher/styles.css");
+            URL stylesheetURL = getClass().getResource(CSS_PATH);
             if (stylesheetURL != null) {
                 styleManager.applyStylesheet(stage.getScene(), stylesheetURL.toExternalForm());
             } else {
-                System.out.println("Stylesheet not found: /com/example/Launcher/styles.css");
+                System.out.println("Stylesheet not found: " + CSS_PATH);
             }
 
             stage.showAndWait();  // Wait for the form to close before resuming the calling method
@@ -170,9 +171,6 @@ public class DisplayController {
 
         // Get the selected toons (ObservableList) directly from ToonListManager
         ObservableList<Toon> selectedToons = FXCollections.observableArrayList(toonManager.getSelectedToons());
-
-        // Debug: Print the selected toons to the console
-        selectedToons.forEach(toon -> System.out.println("Selected Toon: " + toon.getName() + " isSelected: " + toon.isSelected()));
 
         // Check if there are any selected toons
         if (!selectedToons.isEmpty()) {

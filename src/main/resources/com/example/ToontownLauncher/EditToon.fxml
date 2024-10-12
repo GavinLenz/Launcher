@@ -9,7 +9,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.Launcher.controllers.eventhandlers.EditToonController"
+      fx:controller="com.example.ToontownLauncher.controllers.eventhandlers.EditToonController"
       alignment="CENTER" spacing="10" prefHeight="200" prefWidth="250">
 
     <Label text="Edit Toon" />

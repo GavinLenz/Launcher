@@ -1,4 +1,4 @@
-package com.example.ToontownLauncher.launcher;
+package com.example.ToontownLauncher.utils.game;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class Launcher {
     }
 
     private void launchGame() {
-        File executableFile = new File(path, "TTREngine64.exe");
+        File executableFile = new File(path + "TTREngine64.exe");
 
         // Check if the file exists and is executable
         if (!executableFile.exists() || !executableFile.canExecute()) {
