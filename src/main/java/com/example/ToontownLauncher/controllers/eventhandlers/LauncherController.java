@@ -8,105 +8,59 @@ import com.example.ToontownLauncher.utils.game.Login;
 import com.example.ToontownLauncher.models.Toon;
 import com.example.ToontownLauncher.models.errors.AlertManager;
 
-import java.util.ArrayList;
-
 import javafx.scene.control.Alert;
 
 public class LauncherController {
-
-    private static List<Login> invalidResponses;
-    private static List<Login> twoFAResponses;
-    private static List<Login> queuedResponses;
-
+    
     public static void launchToons(List<Toon> toons) {
-        // need to rework this whole for loop, i realised at the end and too tired to do it rn
-        for (Toon toon : toons) {
-            // starts the login process and gets the API response
-            Login currentLogin = new Login(toon.getUsername(), toon.getPassword(), new InvalidLoginController());
-            currentLogin.sendLoginRequest();
-            HashMap<String, String> currentResponse = currentLogin.getResponse();
-            String success = currentResponse.get("success");
+        InvalidLoginController invalidLogins = null;
+        HashMap<String, String> loginValues = new HashMap<>();
 
-            System.out.println("Login response: " + currentResponse);
+        for (Toon toon : toons) {
+
+            loginValues.put("username", toon.getUsername());
+            loginValues.put("password", toon.getPassword());
+
+            // starts the login process and gets the API response
+            loginValues = new Login(loginValues).getResponse();
+
+            String success = loginValues.get("success");
 
             // launches game and skips to next iteration
             if ("true".equals(success)) {
-                Launcher.startLaunch(currentResponse.get("gameserver"), currentResponse.get("cookie"));
+                Launcher.startLaunch(loginValues.get("gameserver"), loginValues.get("cookie"));
                 continue;
             }
 
             // adds name key-val pair so we know which account has issues with login
-            currentResponse.put("name", toon.getName());
+            String name = toon.getName();
+            String banner;
 
             // adds response to its corresponding list
             switch (success) {
                 case "false":
-                    invalidResponses = new ArrayList<>();
-                    invalidResponses.add(currentLogin);
+                    banner = loginValues.get("banner");
+                    if (invalidLogins == null) { invalidLogins = new InvalidLoginController(); }
+                    invalidLogins.addLoginError(name, banner);
+
                     break;
                 case "partial":
-                    twoFAResponses = new ArrayList<>();
-                    twoFAResponses.add(currentLogin);
+                    banner = loginValues.get("banner").contains("ToonGuard") ? "ToonGuard: " : "2FA Code: ";
+
                     break;
                 case "delayed":
-                    queuedResponses = new ArrayList<>();
-                    queuedResponses.add(currentLogin);
+                    String position = loginValues.get("position");
+                    String eta = loginValues.get("eta");
+                    banner = String.format("Position: %s. Estimated wait time: %s.", position, eta);
+
                     break;
                 default:
                     AlertManager.showAlert(Alert.AlertType.ERROR, "Unknown Response", "Unexpected response from TTR Login API.");
             }
         }
-        handleInvalids();
-        handleTwoFAs();
-        handleQueued();
-    }
 
-    private static void handleInvalids() {
-        if (invalidResponses == null) { return; }
-
-        for (Login login : invalidResponses) {
-            HashMap<String, String> response = login.getResponse();
-            String name = response.get("name");
-            String banner = response.get("banner");
-
-            // TO-DO add to form which will display all invalid logins
+        if (invalidLogins != null) {
+            invalidLogins.showErrorForm();
         }
-        // display form
-        // no need to do anything after this
-        invalidResponses = null;
-    }
-
-    private static void handleTwoFAs() {
-        if (twoFAResponses == null) { return; }
-
-        for (Login login : twoFAResponses) {
-            HashMap<String, String> response = login.getResponse();
-            String name = response.get("name");
-            String banner = (response.get("banner").contains("ToonGuard")) ? "ToonGuard" : "2FA Code";
-
-            // TO-DO add to form which prompts user to enter codes
-        }
-        // display form
-    }
-    
-    // CALL WHEN USER ENTERS CODE VIA THE FORM BUTTON FUNCTION OR SMTH
-    // clears loginDetails and sets authToken and appToken for next login attempt
-    private static void twoFALogin(int index, String responseToken, String appToken) {
-            Login login = twoFAResponses.get(index);
-            HashMap<String, String> loginDetails = login.getLoginDetails();
-            loginDetails.clear();
-            loginDetails.put("authToken", responseToken);
-            loginDetails.put("appToken", appToken);
-            // i think we get the reference so we dont need to set? need to double check this
-            // login.setLoginDetails(loginDetails);
-            login.sendLoginRequest();
-            
-            // when done with all 2FA, make list null
-            twoFAResponses = null;
-    }
-
-    private static void handleQueued() {
-        if (queuedResponses == null) { return; }
-        // fuck queued for now bc this never happens let's be real
     }
 }

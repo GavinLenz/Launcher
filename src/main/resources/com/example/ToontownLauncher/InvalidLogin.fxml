@@ -5,13 +5,13 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.ToontownLauncher.controllers.eventhandlers.InvalidLoginController"
-      alignment="CENTER" spacing="10" prefHeight="400" prefWidth="400">
+      alignment="CENTER" spacing="10" prefHeight="400" prefWidth="450">
 
     <children>
         <TableView fx:id="errorTable" prefHeight="300" prefWidth="350">
             <columns>
                 <TableColumn fx:id="toonColumn" text="Toon" prefWidth="150" />
-                <TableColumn fx:id="reasonColumn" text="Reason" prefWidth="250" />
+                <TableColumn fx:id="reasonColumn" text="Reason" prefWidth="300" />
             </columns>
         </TableView>
     </children>

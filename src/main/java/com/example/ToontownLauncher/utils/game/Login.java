@@ -1,7 +1,10 @@
 package com.example.ToontownLauncher.utils.game;
 
-import com.example.ToontownLauncher.controllers.eventhandlers.InvalidLoginController;
 import com.example.ToontownLauncher.models.errors.AlertManager;
+import javafx.scene.control.Alert;
+
+import java.util.HashMap;
+
 import org.json.JSONObject;
 
 import java.net.URI;
@@ -10,34 +13,24 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpClient;
 import static java.net.http.HttpClient.newHttpClient;
 
-import java.util.HashMap;
-import javafx.scene.control.Alert;
 
 public class Login {
 
     private HashMap<String, String> response;
     private HashMap<String, String> loginDetails;
-    private InvalidLoginController invalidLoginController;  // Reference to InvalidLoginController
 
-    public Login(String username, String password, InvalidLoginController invalidLoginController) {
-        this.invalidLoginController = invalidLoginController;
-
+    public Login(HashMap<String, String> loginDetails) {
         response = new HashMap<>();
-        loginDetails = new HashMap<>();
-        loginDetails.put("username", username);
-        loginDetails.put("password", password);
+        this.loginDetails = loginDetails;
+        sendLoginRequest();
     }
 
     // response getter
     public HashMap<String, String> getResponse() {
         return response;
     }
-    // loginDetails getter and setter
-    public HashMap<String,String> getLoginDetails() {
-        return loginDetails;
-    }
 
-    public void sendLoginRequest() {
+    private void sendLoginRequest() {
         HttpClient client = newHttpClient();
         HttpResponse<String> httpResponse;
 
@@ -51,19 +44,8 @@ public class Login {
         try {
             httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
             jsonStringToHashMap(httpResponse.body());
-
-            // Check for errors in the response and pass to InvalidLoginController
-            if ("false".equals(response.get("success"))) {
-                String errorMessage = response.get("banner");
-                String toonName = loginDetails.get("username");
-                invalidLoginController.addLoginError(toonName, errorMessage);
-                invalidLoginController.showErrorForm();  // Show error form
-            }
         } catch (Exception e) {
-            String errorMsg = "Login error: Could not send a login request.";
-            AlertManager.showAlert(Alert.AlertType.ERROR, "Login error", errorMsg);
-            invalidLoginController.addLoginError(loginDetails.get("username"), errorMsg);  // Pass error to table as well
-            invalidLoginController.showErrorForm();  // Show error form
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Login error", "Could not send a login request.");
             e.printStackTrace();
         }
     }
