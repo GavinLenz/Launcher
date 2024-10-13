@@ -171,9 +171,6 @@ public class DisplayController {
         // Get the selected toons (ObservableList) directly from ToonListManager
         ObservableList<Toon> selectedToons = FXCollections.observableArrayList(toonManager.getSelectedToons());
 
-        // Debug: Print the selected toons to the console
-        selectedToons.forEach(toon -> System.out.println("Selected Toon: " + toon.getName() + " isSelected: " + toon.isSelected()));
-
         // Check if there are any selected toons
         if (!selectedToons.isEmpty()) {
             LauncherController.launchToons(selectedToons);

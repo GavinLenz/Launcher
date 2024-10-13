@@ -1,4 +1,4 @@
-package com.example.ToontownLauncher.utils.ui;
+package com.example.ToontownLauncher.models.errors;
 
 import javafx.scene.control.Alert;
 
