@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InvalidLoginController {
 
@@ -28,7 +30,6 @@ public class InvalidLoginController {
     private TableColumn<String[], String> reasonColumn;
 
     private final ObservableList<String[]> invalidListView = FXCollections.observableArrayList();
-    private final String CSS_PATH = "/com/example/ToontownLauncher/styles.css";
 
     @FXML
     public void initialize() {
@@ -52,13 +53,15 @@ public class InvalidLoginController {
             stage.initModality(Modality.APPLICATION_MODAL);  // Make it modal
             stage.setTitle("Login Error");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
 
             StyleManager styleManager = new StyleManager();
-            URL stylesheetURL = getClass().getResource(CSS_PATH);
+            URL stylesheetURL = getClass().getResource("/com/example/ToontownLauncher/styles.css");
             if (stylesheetURL != null) {
+                System.out.println("Applying stylesheet: " + stylesheetURL.toExternalForm());
                 styleManager.applyStylesheet(stage.getScene(), stylesheetURL.toExternalForm());
             } else {
-                System.out.println("Stylesheet not found: " + CSS_PATH);
+                Logger.getLogger(InvalidLoginController.class.getName()).log(Level.WARNING, "Stylesheet not found: /com/example/ToontownLauncher/styles.css");
             }
 
             stage.showAndWait();

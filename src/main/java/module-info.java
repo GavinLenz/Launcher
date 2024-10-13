@@ -20,6 +20,7 @@ module com.example.ToontownLauncher {
     requires org.apache.httpcomponents.client5.httpclient5;
     requires org.apache.httpcomponents.core5.httpcore5;
     requires com.fasterxml.jackson.databind;
+    requires java.logging;
 
     // Open packages to javafx.fxml for reflection
     opens com.example.ToontownLauncher.controllers to javafx.fxml;
