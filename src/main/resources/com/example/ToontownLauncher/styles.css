@@ -68,7 +68,7 @@
 /* Using as a band-aid until I fix CSS issue within the list */
 .text {
     -fx-font-family: "Arial";
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-fill: #A5A59E;  /* Beige text */
 
@@ -99,4 +99,26 @@
     -fx-background-color: #2E2E2E;  /* Dark Grey background */
     -fx-border-radius: 5;
     -fx-border-color: #BFBFBF;  /* Light grey border */
+}
+
+/* TableView Styling */
+.table-view {
+    -fx-background-color: #2E2E2E;  /* Dark Grey background */
+    -fx-border-color: #BFBFBF;  /* Light grey border */
+    -fx-text-fill: #A5A59E;  /* Beige text for list items */
+    -fx-border-radius: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #2E2E2E;  /* Dark Grey background for header */
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #2E2E2E;  /* Dark Grey background for rows */
+    -fx-text-fill: #A5A59E;  /* Beige text for rows */
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #3A3A3A;  /* Slightly lighter grey for selected rows */
+    -fx-text-fill: #FFFFFF;  /* White text for selected rows */
 }

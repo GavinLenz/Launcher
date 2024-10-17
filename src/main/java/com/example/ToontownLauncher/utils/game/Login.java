@@ -1,5 +1,10 @@
 package com.example.ToontownLauncher.utils.game;
 
+import com.example.ToontownLauncher.models.errors.AlertManager;
+import javafx.scene.control.Alert;
+
+import java.util.HashMap;
+
 import org.json.JSONObject;
 
 import java.net.URI;
@@ -8,36 +13,24 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpClient;
 import static java.net.http.HttpClient.newHttpClient;
 
-import java.util.HashMap;
-
-import com.example.ToontownLauncher.utils.ui.AlertManager;
-import javafx.scene.control.Alert;
-
 
 public class Login {
+
     private HashMap<String, String> response;
     private HashMap<String, String> loginDetails;
 
-    public Login(String username, String password) {
+    public Login(HashMap<String, String> loginDetails) {
         response = new HashMap<>();
-        loginDetails = new HashMap<>();
-        loginDetails.put("username", username);
-        loginDetails.put("password", password);
+        this.loginDetails = loginDetails;
+        sendLoginRequest();
     }
 
     // response getter
     public HashMap<String, String> getResponse() {
         return response;
     }
-    // loginDetails getter and setter
-    public HashMap<String,String> getLoginDetails() {
-        return loginDetails;
-    }
-    public void setLoginDetails(HashMap<String, String> loginDetails) {
-        this.loginDetails = loginDetails;
-    }
 
-    public void sendLoginRequest() {
+    private void sendLoginRequest() {
         HttpClient client = newHttpClient();
         HttpResponse<String> httpResponse;
 
@@ -54,7 +47,6 @@ public class Login {
         } catch (Exception e) {
             AlertManager.showAlert(Alert.AlertType.ERROR, "Login error", "Could not send a login request.");
             e.printStackTrace();
-            return;
         }
     }
 
