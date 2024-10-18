@@ -22,21 +22,18 @@ public class InvalidLoginController {
 
     @FXML
     private TableView<String[]> errorTable;
-
     @FXML
     private TableColumn<String[], String> toonColumn;
-
     @FXML
     private TableColumn<String[], String> reasonColumn;
 
     private final ObservableList<String[]> invalidListView = FXCollections.observableArrayList();
 
+
     @FXML
     public void initialize() {
-        // Set up the columns
         toonColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()[0]));
         reasonColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()[1]));
-        // Bind the data to the TableView
         errorTable.setItems(invalidListView);
     }
 
@@ -50,7 +47,7 @@ public class InvalidLoginController {
             controller.invalidListView.addAll(this.invalidListView);
 
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);  // Make it modal
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Login Error");
             stage.setScene(new Scene(root));
             stage.setResizable(false);
@@ -71,7 +68,6 @@ public class InvalidLoginController {
     }
 
     public void addLoginError(String toonName, String errorMessage) {
-        // Add the error to the observable list, which automatically updates the table
         invalidListView.add(new String[] {toonName, errorMessage});
     }
 }

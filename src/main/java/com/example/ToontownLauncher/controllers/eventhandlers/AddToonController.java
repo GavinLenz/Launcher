@@ -18,6 +18,7 @@ public class AddToonController {
     @FXML
     private TextField passwordField;
 
+
     public void setDisplayController(DisplayController displayController) {
         // Link the DisplayController to this controller
     }
@@ -28,15 +29,12 @@ public class AddToonController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // Ensure no field is empty before proceeding
         if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
             System.out.println("All fields must be filled.");
             return;
         }
 
         Toon newToon = new Toon(name, username, password);
-
-        // Use the Command Pattern to add the Toon (No need to pass ToonListManager now)
         Command addToonCommand = new AddToonCommand(newToon);
         addToonCommand.execute();
 
@@ -49,3 +47,6 @@ public class AddToonController {
         stage.close();
     }
 }
+
+
+

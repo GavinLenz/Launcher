@@ -65,7 +65,6 @@
     I would like a darker green */
 }
 
-/* Using as a band-aid until I fix CSS issue within the list */
 .text {
     -fx-font-family: "Arial";
     -fx-font-size: 12px;

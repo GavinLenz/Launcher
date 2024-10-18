@@ -22,16 +22,15 @@ public class EditToonController {
     private DisplayController displayController;
     private Toon originalToon;
 
+
     public void setDisplayController(DisplayController displayController, Toon toon) {
         this.displayController = displayController;
         this.originalToon = toon;
 
-        // Populate the fields with the toon's existing data
         lockedNameField.setText(toon.getName());
         usernameField.setText(toon.getUsername());
         passwordField.setText(toon.getPassword());
 
-        // Disable the name field to prevent editing
         lockedNameField.setDisable(true);
     }
 
@@ -41,15 +40,12 @@ public class EditToonController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // Ensure no field is empty before proceeding
         if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
             System.out.println("All fields must be filled.");
             return;
         }
 
         Toon newToon = new Toon(name, username, password);
-
-        // Use the Command Pattern to add the Toon (No need to pass ToonListManager now)
         Command updateToonCommand = new UpdateToonCommand(newToon);
         updateToonCommand.execute();
 
@@ -58,8 +54,6 @@ public class EditToonController {
 
     @FXML
     public void removeToon() {
-
-        // Use the Command Pattern to delete the Toon (No need to pass ToonListManager now)
         Command removeToonCommand = new RemoveToonCommand(originalToon);
         removeToonCommand.execute();
 

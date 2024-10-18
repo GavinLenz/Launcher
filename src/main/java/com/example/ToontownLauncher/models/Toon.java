@@ -5,7 +5,8 @@ public class Toon {
     private String name;
     private String username;
     private String password;
-    private boolean selected;  // To track selection status in UI
+    private boolean selected;
+
 
     public Toon(String name, String username, String password) {
         this.name = name;

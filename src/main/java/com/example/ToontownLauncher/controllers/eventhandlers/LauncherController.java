@@ -11,32 +11,27 @@ import com.example.ToontownLauncher.models.errors.AlertManager;
 import javafx.scene.control.Alert;
 
 public class LauncherController {
-    
+
     public static void launchToons(List<Toon> toons) {
         InvalidLoginController invalidLogins = null;
         HashMap<String, String> loginValues = new HashMap<>();
 
         for (Toon toon : toons) {
-
             loginValues.put("username", toon.getUsername());
             loginValues.put("password", toon.getPassword());
 
-            // starts the login process and gets the API response
             loginValues = new Login(loginValues).getResponse();
 
             String success = loginValues.get("success");
 
-            // launches game and skips to next iteration
             if ("true".equals(success)) {
                 Launcher.startLaunch(loginValues.get("gameserver"), loginValues.get("cookie"));
                 continue;
             }
 
-            // adds name key-val pair so we know which account has issues with login
             String name = toon.getName();
             String banner;
 
-            // adds response to its corresponding list
             switch (success) {
                 case "false":
                     banner = loginValues.get("banner");

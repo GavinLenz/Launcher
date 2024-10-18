@@ -5,17 +5,17 @@ import java.io.IOException;
 import java.lang.ProcessBuilder;
 import java.util.Map;
 
-
 public class Launcher {
-    private String gameserver;
-    private String cookie;
-    private String path;
 
-    private Launcher(String gameserver, String cookie) {
-        this.gameserver = gameserver;
+    private final String gameServer;
+    private final String cookie;
+    private final String path;
+
+
+    private Launcher(String gameServer, String cookie) {
+        this.gameServer = gameServer;
         this.cookie = cookie;
 
-        // get path from config file instead
         path = "C:\\Program Files (x86)\\Toontown Rewritten\\";
     }
 
@@ -27,7 +27,6 @@ public class Launcher {
     private void launchGame() {
         File executableFile = new File(path + "TTREngine64.exe");
 
-        // Check if the file exists and is executable
         if (!executableFile.exists() || !executableFile.canExecute()) {
             System.err.println("Executable not found or not executable: " + executableFile.getAbsolutePath());
             return;
@@ -35,13 +34,11 @@ public class Launcher {
 
         ProcessBuilder pb = new ProcessBuilder(path + "TTREngine64.exe");
 
-        // Set working directory without the executable in the path
         pb.directory(new File(path));
 
-        // Clear environment variables and set the necessary ones
         Map<String, String> env = pb.environment();
         env.clear();
-        env.put("TTR_GAMESERVER", gameserver);
+        env.put("TTR_GAMESERVER", gameServer);
         env.put("TTR_PLAYCOOKIE", cookie);
 
         try {

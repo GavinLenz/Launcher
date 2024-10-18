@@ -16,8 +16,9 @@ public class ToonFileManager {
 
     private static final String TOON_FILE_PATH = "src/main/resources/com/example/ToontownLauncher/toons_data.txt"; // Path to your file
 
+
     public ObservableList<Toon> loadToonsFromFile() {
-        List<Toon> toons = new ArrayList<>();  // Load into a regular list first
+        List<Toon> toons = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(TOON_FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -34,12 +35,10 @@ public class ToonFileManager {
             System.out.println("Failed to load toons from file: " + e.getMessage());
             e.printStackTrace();
         }
-
-        // Convert the List to an ObservableList before returning
         return FXCollections.observableArrayList(toons);
     }
 
-    public void saveToonsToFile(List<Toon> toons) {
+    public void saveToonsToFile(ObservableList<Toon> toons) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(TOON_FILE_PATH))) {
             for (Toon toon : toons) {
                 writer.write(toon.getName() + "," + toon.getUsername() + "," + toon.getPassword());

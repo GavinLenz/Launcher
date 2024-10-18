@@ -1,8 +1,10 @@
 package com.example.ToontownLauncher.models.errors;
 
 public class LoginError {
+
     private String toonName;
     private String errorMessage;
+
 
     public LoginError(String toonName, String errorMessage) {
         this.toonName = toonName;

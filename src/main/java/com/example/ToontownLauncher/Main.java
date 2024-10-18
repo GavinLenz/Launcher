@@ -15,12 +15,12 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    private final String CSS_PATH = "/com/example/ToontownLauncher/styles.css";  // Path to your CSS file
+    private final String CSS_PATH = "/com/example/ToontownLauncher/styles.css";
+
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Load the FXML and create the scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ToontownLauncher/Display.fxml"));
             Scene scene = new Scene(loader.load(), 500, 320);
 
@@ -59,7 +59,6 @@ public class Main extends Application {
         try {
             launch(args);
         } catch (Exception e) {
-            // Capture any exceptions that occur during application launch
             System.err.println("Error launching the application: " + e.getMessage());
             e.printStackTrace();
         }

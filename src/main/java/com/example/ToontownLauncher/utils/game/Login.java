@@ -13,11 +13,11 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpClient;
 import static java.net.http.HttpClient.newHttpClient;
 
-
 public class Login {
 
-    private HashMap<String, String> response;
-    private HashMap<String, String> loginDetails;
+    private final HashMap<String, String> response;
+    private final HashMap<String, String> loginDetails;
+
 
     public Login(HashMap<String, String> loginDetails) {
         response = new HashMap<>();
@@ -25,7 +25,6 @@ public class Login {
         sendLoginRequest();
     }
 
-    // response getter
     public HashMap<String, String> getResponse() {
         return response;
     }
@@ -34,9 +33,9 @@ public class Login {
         HttpClient client = newHttpClient();
         HttpResponse<String> httpResponse;
 
-        String URL = "https://www.toontownrewritten.com/api/login?format=json";
+        String url = "https://www.toontownrewritten.com/api/login?format=json";
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(URL))
+                .uri(URI.create(url))
                 .header("Content-Type", "application/x-www-form-urlencoded; text/plain; charset=UTF-8")
                 .POST(HttpRequest.BodyPublishers.ofString(buildUrlParameter()))
                 .build();

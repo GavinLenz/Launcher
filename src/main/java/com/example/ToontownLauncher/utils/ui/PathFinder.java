@@ -23,7 +23,6 @@ public class PathFinder {
                 return path;
             }
         }
-
         return null;
     }
 }

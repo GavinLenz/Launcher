@@ -7,6 +7,7 @@ public class ConfigManager {
 
     private static final String CONFIG_PATH = "config.properties";
 
+
     public static String readConfig() {
         Properties prop = new Properties();
         try (InputStream input = new FileInputStream(CONFIG_PATH)) {

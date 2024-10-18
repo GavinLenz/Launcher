@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1"
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.ToontownLauncher.controllers.eventhandlers.InvalidLoginController"
       alignment="CENTER" spacing="10" prefHeight="300" prefWidth="600">
 

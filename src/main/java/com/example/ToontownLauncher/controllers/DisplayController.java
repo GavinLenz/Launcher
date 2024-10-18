@@ -30,84 +30,65 @@ import java.net.URL;
 public class DisplayController {
 
     @FXML
-    private ListView<Toon> toonsListView;  // Bind this to your FXML
-
+    private ListView<Toon> toonsListView;
     @FXML
-    private Button playButton; // Ensure this is properly bound to the FXML with fx:id="playButton"
+    private Button playButton;
 
     private final String CSS_PATH = "/com/example/ToontownLauncher/styles.css";
-    private ToonListInitializer uiInitializer;      // For ListView management
+    private ToonListInitializer uiInitializer;
     private Stage primaryStage;
 
-    @FXML
-    // Initialize the controller
-    public void initialize() {
-        ToonListManager toonManager = ToonListManager.getInstance(); // Get the singleton instance of ToonListManager
-        uiInitializer = new ToonListInitializer(toonsListView, toonManager);  // Assign to class-level field
 
-        // Set up the ListView with a checkbox and display the name
+    @FXML
+    public void initialize() {
+        ToonListManager toonManager = ToonListManager.getInstance();
+        uiInitializer = new ToonListInitializer(toonsListView, toonManager);
+
         setupToonListView();
     }
 
-    // Set the primary stage reference, used for various UI operations
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
-    // Setup ListView to handle Toon selection with checkboxes
     private void setupToonListView() {
-        toonsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);  // Enable multiple selection
+        toonsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        toonsListView.setCellFactory(listView -> new CheckBoxListCell<>(new Callback<Toon, ObservableValue<Boolean>>() {
-            @Override
-            public ObservableValue<Boolean> call(Toon toon) {
-                SimpleBooleanProperty selectedProperty = new SimpleBooleanProperty(toon.isSelected());
-                selectedProperty.addListener((obs, wasSelected, isNowSelected) -> {
-                    toon.setSelected(isNowSelected); // Update selection state in the Toon object
-
-                    // Debug: Check if the selection state is updated correctly
-                    System.out.println("Toon: " + toon.getName() + " is now " + (isNowSelected ? "selected" : "deselected"));
-                });
-                return selectedProperty;
-            }
+        toonsListView.setCellFactory(listView -> new CheckBoxListCell<>(toon -> {
+            SimpleBooleanProperty selectedProperty = new SimpleBooleanProperty(toon.isSelected());
+            selectedProperty.addListener((obs, wasSelected, isNowSelected) -> toon.setSelected(isNowSelected));
+            return selectedProperty;
         }) {
             @Override
             public void updateItem(Toon toon, boolean empty) {
                 super.updateItem(toon, empty);
                 if (toon != null && !empty) {
-                    setText(toon.getName());  // Display the name of the Toon
+                    setText(toon.getName());
 
-                    // Add a mouse double-click listener to the cell (but outside the checkbox area)
                     this.setOnMouseClicked(event -> {
                         if (event.getClickCount() == 2) {
-                            // Double-click detected, open the edit pane or perform the required action
                             openEditToon(toon);
                         }
                     });
                 } else {
-                    setText(null);  // Clear text for empty cells
+                    setText(null);
                 }
             }
         });
     }
 
     @FXML
-    // Method to open the Add Toon form (this was previously in ToonEventHandlers)
     public void openAddToon() {
         try {
-            // Load the Add Toon form (AddToon.fxml)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ToontownLauncher/AddToon.fxml"));
             Parent root = loader.load();
 
-            // Get the controller for AddToon.fxml
             AddToonController formController = loader.getController();
 
-            // Set this DisplayController in FormEventHandlers (for communication)
             formController.setDisplayController(this);
 
-            // Create a new stage (window) for the form
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Set modality for the new window
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Add Toon");
             stage.setScene(new Scene(root));
             stage.setResizable(false);
@@ -120,7 +101,7 @@ public class DisplayController {
                 System.out.println("Stylesheet not found: " + CSS_PATH);
             }
 
-            stage.showAndWait();  // Wait for the form to close before resuming the calling method
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
@@ -130,19 +111,15 @@ public class DisplayController {
 
     private void openEditToon(Toon toon) {
         try {
-            // Load the Add Toon form (AddToon.fxml)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ToontownLauncher/EditToon.fxml"));
             Parent root = loader.load();
 
-            // Get the controller for AddToon.fxml
             EditToonController formController = loader.getController();
 
-            // Set this DisplayController in FormEventHandlers (for communication)
             formController.setDisplayController(this, toon);
 
-            // Create a new stage (window) for the form
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Set modality for the new window
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Edit Toon");
             stage.setScene(new Scene(root));
             stage.setResizable(false);
@@ -155,7 +132,7 @@ public class DisplayController {
                 System.out.println("Stylesheet not found: " + CSS_PATH);
             }
 
-            stage.showAndWait();  // Wait for the form to close before resuming the calling method
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
@@ -164,15 +141,11 @@ public class DisplayController {
     }
 
     @FXML
-    // Method to play the selected toons when the "Play" button is pressed
     public void playClicked() {
-        // Get the instance of ToonListManager
         ToonListManager toonManager = ToonListManager.getInstance();
 
-        // Get the selected toons (ObservableList) directly from ToonListManager
         ObservableList<Toon> selectedToons = FXCollections.observableArrayList(toonManager.getSelectedToons());
 
-        // Check if there are any selected toons
         if (!selectedToons.isEmpty()) {
             LauncherController.launchToons(selectedToons);
         } else {

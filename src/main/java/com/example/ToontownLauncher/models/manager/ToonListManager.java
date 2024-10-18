@@ -10,23 +10,17 @@ import com.example.ToontownLauncher.models.Toon;
 
 public class ToonListManager {
 
-    // Singleton instance
     private static ToonListManager instance;
+    private final ObservableList<Toon> toons;
+    private final ToonFileManager fileManager;
 
-    // ObservableList to track and update UI
-    private ObservableList<Toon> toons;
 
-    // File manager for I/O
-    private ToonFileManager fileManager;
-
-    // Constructor for Singleton
     private ToonListManager() {
         this.fileManager = new ToonFileManager();
-        List<Toon> loadedToons = fileManager.loadToonsFromFile();  // Load from file
-        toons = FXCollections.observableArrayList(loadedToons);    // Wrap in ObservableList
+        List<Toon> loadedToons = fileManager.loadToonsFromFile();
+        toons = FXCollections.observableArrayList(loadedToons);
     }
 
-    // Thread-safe Singleton instance getter
     public static ToonListManager getInstance() {
         if (instance == null) {
             synchronized (ToonListManager.class) {
@@ -54,7 +48,7 @@ public class ToonListManager {
 
     public void updateToon(Toon updatedToon) {
         for (Toon toon : toons) {
-            if (toon.getName().equals(updatedToon.getName())) {  // Assuming name is unique
+            if (toon.getName().equals(updatedToon.getName())) {
                 toon.setUsername(updatedToon.getUsername());
                 toon.setPassword(updatedToon.getPassword());
                 saveToons();
@@ -64,7 +58,6 @@ public class ToonListManager {
         System.out.println("Toon not found: " + updatedToon.getName());
     }
 
-    // Return selected toons (assuming Toon has isSelected() method)
     public List<Toon> getSelectedToons() {
         return toons.stream()
                 .filter(Toon::isSelected)
