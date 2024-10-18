@@ -9,7 +9,7 @@
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.ToontownLauncher.controllers.eventhandlers.AddToonController"
-   alignment="CENTER" spacing="10" prefHeight="200" prefWidth="250">
+      alignment="CENTER" spacing="10" prefHeight="200" prefWidth="250">
 
    <Label text="Add Toon" />
 
